@@ -1,0 +1,6 @@
+[14-Nov-2019 09:21:39 UTC] PHP Fatal error:  Uncaught Doctrine\Common\Annotations\AnnotationException: [Syntax Error] Expected Doctrine\Common\Annotations\DocLexer::T_CLOSE_PARENTHESIS, got 'controllers' at position 81 in class App\WebSocket\MiracleModule. in /data/wwwroot/pay.dnfmiracle.xyz/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php:42
+Stack trace:
+#0 /data/wwwroot/pay.dnfmiracle.xyz/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php(446): Doctrine\Common\Annotations\AnnotationException::syntaxError('Expected Doctri...')
+#1 /data/wwwroot/pay.dnfmiracle.xyz/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php(394): Doctrine\Common\Annotations\DocParser->syntaxError('Doctrine\\Common...')
+#2 /data/wwwroot/pay.dnfmiracle.xyz/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php(867): Doctrine\Common\Annotations\DocParser->match(103)
+#3 /data/wwwroot/pay.dnfmiracle.xyz/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/DocParser.php(775): Doctr in /data/wwwroot/pay.dnfmiracle.xyz/vendor/doctrine/annotations/lib/Doctrine/Common/Annotations/AnnotationException.php on line 42

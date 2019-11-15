@@ -1,0 +1,17 @@
+.buildpath
+.settings/
+.project
+*.patch
+.idea/
+.git/
+runtime/
+vendor/
+temp/
+*.lock
+.phpintel/
+.env
+.phpstorm.meta.php
+.DS_Store
+public/devtool/
+/app/bean.php
+/php_errors.log
