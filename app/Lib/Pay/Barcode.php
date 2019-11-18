@@ -77,8 +77,7 @@ class Barcode
     {
         $rootPath = config("pay.rootPath");
         $payStatus = 0;
-        echo 1;
-        while($payStatus==="01"){
+        while($payStatus!=="01"){
             echo "hello;\n";
             $content = SaberGM::post($rootPath.self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
             if($content["result_code"]==="01")return $content;
