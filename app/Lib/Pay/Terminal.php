@@ -33,7 +33,7 @@ class Terminal
             'json' => $info
         ]);
         $response = $saber->post(self::POST_PATH, $info);
-        var_dump(file_get_contents("php//input"));
+        var_dump(file_get_contents("php://input"));
         if($response->getStatusCode()!=200)return 200;
         return $response->getBody();
     }
