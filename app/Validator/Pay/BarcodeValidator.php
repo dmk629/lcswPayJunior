@@ -5,6 +5,7 @@ namespace App\Validator\Pay;
 use App\Annotation\Mapping\AlphaDash;
 use Swoft\Validator\Annotation\Mapping\IsInt;
 use Swoft\Validator\Annotation\Mapping\IsString;
+use Swoft\Validator\Annotation\Mapping\IsFloat;
 use Swoft\Validator\Annotation\Mapping\Length;
 use Swoft\Validator\Annotation\Mapping\AlphaNum;
 use Swoft\Validator\Annotation\Mapping\Min;
