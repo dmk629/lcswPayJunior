@@ -41,7 +41,7 @@ class TerminalController
             $terminal_instance = new Terminal($pay_config["inst_no"],$pay_config["merchant_no"]);
             $post_result = $terminal_instance->getTerminal();
             if(empty($post_result))formatResponse(false,1,"Request error");
-            $terminal_dao->addTerminal($post_result["terminal_id"],$post_result["terminal_name"],$post_result["access_token"]);
+            $terminal_dao->addTerminal((int)$post_result["terminal_id"],$post_result["terminal_name"],$post_result["access_token"]);
             return ["terminal_id"=>$post_result["terminal_id"],"terminal_name"=>$post_result["terminal_name"]];
         }else{
             return $terminal_info;
