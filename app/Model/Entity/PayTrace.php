@@ -57,11 +57,11 @@ class PayTrace extends Model
 
 
     /**
-     * @param int $id
+     * @param string $id
      *
      * @return void
      */
-    public function setId(int $id): void
+    public function setId(string $id): void
     {
         $this->id = $id;
     }
@@ -97,9 +97,9 @@ class PayTrace extends Model
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
