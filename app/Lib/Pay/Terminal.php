@@ -29,12 +29,10 @@ class Terminal
         $rootPath = config("pay.rootPath");
         $info = $this->getPostInfo(["key" => config("pay.key")]);
         $saber = Saber::create([
-            //'base_uri' => $rootPath,
-            'base_uri' => "http://www.baidu.com",
+            'base_uri' => $rootPath,
             'json' => "json"
         ]);
-        //$response = $saber->post(self::POST_PATH, $info);
-        $response = $saber->post("/search/error.html", $info);
+        $response = $saber->post(self::POST_PATH, $info);
         echo $response->getBody();
         if($response->getStatusCode()!=200)return 200;
         return $response->getBody();
