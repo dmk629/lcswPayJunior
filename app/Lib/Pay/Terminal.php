@@ -33,8 +33,14 @@ class Terminal
             'json' => "json"
         ]);
         $response = $saber->post(self::POST_PATH, $info);
-        if($response->getStatusCode()!=200)return 200;
-        return $response->getParsedJsonArray();
+        if($response->getStatusCode()!=200)return false;
+        $content = $response->getParsedJsonArray();
+        if($content["result_code"]!=="01")return false;
+        return [
+            "id" => (int)$content["terminal_id"],
+            "name" => $content["terminal_name"],
+            "access_token" => $content["access_token"]
+        ];
     }
 
     /**

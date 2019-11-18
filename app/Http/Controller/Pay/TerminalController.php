@@ -27,15 +27,12 @@ class TerminalController
 
     /**
      * rewardResult
-     * @RequestMapping(route="create",method=RequestMethod::POST)
-     * @Middleware(ControllerMiddleware::class)
-     *
-     * @param Request $request
+     * @RequestMapping(route="create",method=RequestMethod::GET)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function getTerminal(Request $request)
+    public function getTerminal()
     {
         $terminal_dao = BeanFactory::getBean("TerminalDao");
         $terminal_info = $terminal_dao->getTerminal();
@@ -43,8 +40,9 @@ class TerminalController
             $pay_config = config("pay");
             $terminal_instance = new Terminal($pay_config["inst_no"],$pay_config["merchant_no"]);
             $post_result = $terminal_instance->getTerminal();
-            var_dump($post_result);
-            return true;
+            if(empty($post_result))formatResponse(false,1,"Request error");
+            $terminal_dao->addTerminal($post_result["terminal_id"],$post_result["terminal_name"],$post_result["access_token"]);
+            return ["terminal_id"=>$post_result["terminal_id"],"terminal_name"=>$post_result["terminal_name"]];
         }else{
             return $terminal_info;
         }
