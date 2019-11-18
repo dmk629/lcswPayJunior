@@ -38,7 +38,6 @@ class Barcode
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getPayInfo($terminalId, $authNo, $totalFee, ["access_token" => $key]);
-        var_dump($info);
         $saber = Saber::create([
             'base_uri' => $rootPath,
             'json' => "json"
@@ -58,15 +57,14 @@ class Barcode
             default:
                 return 66;
         }
-        //$queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["trace_no"], $payContent["out_trade_no"], ["key" => $key]);
+        $queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["trace_no"], $payContent["out_trade_no"], ["key" => $key]);
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
-        /*$queryContent = $this->getPayResult($queryInfo);
+        $queryContent = $this->getPayResult($queryInfo);
         if($queryContent){
             return $queryContent;
         }else{
             return 66;
-        }*/
-        return 1;
+        }
     }
 
     /**
@@ -147,7 +145,6 @@ class Barcode
      * */
     private function createSign($info, $key)
     {
-        //ksort($info,SORT_STRING);
         $signString = "";
         foreach($info as $k=>$v){
             $signString .= $k."=".$v."&";
