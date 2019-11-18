@@ -1,17 +1,20 @@
 <?php
 namespace App\Lib\Pay;
+use Swoft\Bean\BeanFactory;
 
 class Trace
 {
     /**
      * 记录
-     * @param int $traceNumber
+     * @param int $traceId
+     * @param int $terminalId
      * @param string $url
      * @return void
      * */
-    public static function recordTrace(int $traceNumber, string $url)
+    public static function recordTrace(int $traceId, int $terminalId, string $url)
     {
-
+        $traceDao = BeanFactory::getBean("TraceDao");
+        $traceDao->recordTrace($traceId, $terminalId, $url);
     }
 
     /**

@@ -36,6 +36,7 @@ class Terminal
         if($response->getStatusCode()!=200)return false;
         $content = $response->getParsedJsonArray();
         if($content["result_code"]!=="01")return false;
+        Trace::recordTrace($content["trace_no"], $content["terminal_id"], $rootPath.self::POST_PATH);
         return $content;
     }
 
