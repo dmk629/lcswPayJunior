@@ -29,9 +29,7 @@ class Terminal
         $rootPath = config("pay.rootPath");
         $saber = Saber::create([
             'base_uri' => $rootPath,
-            'headers' => [
-                'Content-Type' => "Application/json",
-            ]
+            'json' => true
         ]);
         $info = $this->getPostInfo(["key" => config("pay.key")]);
         return $saber->post(self::POST_PATH, $info);
