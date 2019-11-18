@@ -37,7 +37,7 @@ class Barcode
     public function payOrder(int $terminalId, string $authNo, int $totalFee, string $key)
     {
         $rootPath = config("pay.rootPath");
-        $info = $this->getPayInfo($terminalId, $authNo, $totalFee, ["key" => $key]);
+        $info = $this->getPayInfo($terminalId, $authNo, $totalFee, ["access_token" => $key]);
         var_dump($info);
         $saber = Saber::create([
             'base_uri' => $rootPath,
@@ -108,7 +108,7 @@ class Barcode
             "terminal_trace" => Trace::createTraceNumber(),
             "terminal_time" => date("YmdHis"),
             "auth_no" => $authNo,
-            "total_fee" => (string)$totalFee
+            "total_fee" => $totalFee
         ];
         $info["key_sign"] = $this->createSign($info, $key);
         return $info;
