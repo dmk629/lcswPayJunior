@@ -9,6 +9,7 @@ use Swoft\Http\Message\Request;
 use App\Exception\ApiException;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use App\Http\Middleware\ControllerMiddleware;
+use Swoft\Validator\Annotation\Mapping\Validate;
 use Swoft\Bean\BeanFactory;
 use App\Lib\Pay\Barcode;
 use Throwable;
