@@ -38,6 +38,7 @@ class Barcode
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getPayInfo($terminalId, $authNo, $totalFee, ["key" => $key]);
+        var_dump($info);
         $saber = Saber::create([
             'base_uri' => $rootPath,
             'json' => "json"
