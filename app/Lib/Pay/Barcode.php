@@ -79,7 +79,12 @@ class Barcode
         $payStatus = 0;
         while($payStatus!=="01"){
             echo "hello;\n";
-            $content = SaberGM::post($rootPath.self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
+            $saber = Saber::create([
+                'base_uri' => $rootPath,
+                'json' => "json"
+            ]);
+            $content = $saber->post(self::POST_PATH, $queryInfo)->getParsedJsonArray();
+            //$content = SaberGM::post($rootPath.self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
             if($content["result_code"]==="01")return $content;
             var_dump($content);
             \Swoole\Coroutine\System::sleep(5);
