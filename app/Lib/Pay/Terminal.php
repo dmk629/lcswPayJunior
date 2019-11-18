@@ -36,11 +36,7 @@ class Terminal
         if($response->getStatusCode()!=200)return false;
         $content = $response->getParsedJsonArray();
         if($content["result_code"]!=="01")return false;
-        return [
-            "id" => (int)$content["terminal_id"],
-            "name" => $content["terminal_name"],
-            "access_token" => $content["access_token"]
-        ];
+        return $content;
     }
 
     /**
