@@ -48,7 +48,7 @@ class Barcode
         var_dump($payContent);
         switch($payContent["result_code"]) {
             case "01":
-                Trace::recordTrace($info["trace_no"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
+                Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
             case "02":
             case "99":
                 return (int)$payContent["result_code"];
@@ -57,7 +57,7 @@ class Barcode
             default:
                 return 66;
         }
-        $queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["trace_no"], $payContent["out_trade_no"], ["key" => $key]);
+        $queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["terminal_trace"], $payContent["out_trade_no"], ["key" => $key]);
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
         $queryContent = $this->getPayResult($queryInfo);
         if($queryContent){
