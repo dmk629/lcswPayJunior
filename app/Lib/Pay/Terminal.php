@@ -23,6 +23,7 @@ class Terminal
 
     /**
      * 请求终端
+     * @return array|false
      * */
     public function getTerminal()
     {

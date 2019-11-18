@@ -12,20 +12,28 @@ use Swoft\Validator\Annotation\Mapping\Max;
 use Swoft\Validator\Annotation\Mapping\Validator;
 
 /**
- * Class PreyValidator
+ * Class BarcodeValidator
  *
  * @since 2.0
  *
- * @Validator(name="PreyValidator")
+ * @Validator(name="BarcodeValidator")
  */
-class PreyValidator
+class BarcodeValidator
 {
     /**
      * @IsString(message="格式不正确")
-     * @ChsAlphaDash(message="角色名只能使用中文、英文、数字、短横-、下划线_")
+     * @AlphaNum(message="付款码不正确")
      * @Length(min=0,max=40,message="长度不正确")
      * @var string
      */
-    protected $nickname = "未知玩家";
+    protected $barcode = "";
+
+    /**
+     * @IsFloat(message="格式不正确")
+     * @Min(value=0,message="格式不正确")
+     * @Max(value=99999999,message="格式不正确")
+     * @var int
+     */
+    protected $total;
 
 }

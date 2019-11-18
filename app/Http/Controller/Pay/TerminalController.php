@@ -5,10 +5,7 @@ namespace App\Http\Controller\Pay;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
-use Swoft\Http\Message\Request;
 use App\Exception\ApiException;
-use Swoft\Http\Server\Annotation\Mapping\Middleware;
-use App\Http\Middleware\ControllerMiddleware;
 use Swoft\Bean\BeanFactory;
 use App\Lib\Pay\Terminal;
 use Throwable;
@@ -19,11 +16,6 @@ use Throwable;
  */
 class TerminalController
 {
-    /**
-     * Maximum number of participants
-     * @param int
-     */
-    private $max_count = 12;
 
     /**
      * rewardResult
@@ -46,21 +38,6 @@ class TerminalController
         }else{
             return formatResponse(true,0,$terminal_info);
         }
-    }
-
-    /**
-     * test
-     * @RequestMapping(route="/test",method=RequestMethod::POST)
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function test(Request $request)
-    {
-        BeanFactory::getBean("PlayerDao");
-        //BeanFactory::getBean("TerminalDao");
     }
 
 }
