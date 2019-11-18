@@ -66,7 +66,7 @@ class Barcode
         }else{
             return 66;
         }*/
-        return 2;
+        return 1;
     }
 
     /**
