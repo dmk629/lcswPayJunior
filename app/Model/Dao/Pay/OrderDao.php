@@ -30,14 +30,14 @@ class OrderDao
     }
 
     /**
-     * 获取流水（未完成）
+     * 获取订单（未完成）
      *
      * @return array
      * @throws Throwable
      */
-    public function getTerminal()
+    public function getOrder()
     {
-        $info = PayTrace::select("terminal_id","url")
+        $info = PayOrder::select("terminal_id","url")
             ->where("id","=","1")
             ->first();
         return empty($info) ? [] : $info->toArray();

@@ -27,8 +27,8 @@ class BarcodeController
     private $max_count = 12;
 
     /**
-     * payOrder
-     * @RequestMapping(route="pay",method=RequestMethod::GET)
+     * payForBarcode
+     * @RequestMapping(route="pay",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
      * @Validate(validator="BarcodeValidator",fields={"barcode","total"})
      *
