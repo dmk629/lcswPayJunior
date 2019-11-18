@@ -42,7 +42,7 @@ class TerminalController
             $post_result = $terminal_instance->getTerminal();
             if(empty($post_result))formatResponse(false,1,"Request error");
             $terminal_dao->addTerminal((int)$post_result["terminal_id"],$post_result["terminal_name"],$post_result["access_token"]);
-            return formatResponse(true,0,["terminal_id"=>(string)$post_result["terminal_id"],"access_token"=>$post_result["access_token"]]);
+            return formatResponse(true,0,["terminal_id"=>(int)$post_result["terminal_id"],"access_token"=>$post_result["access_token"]]);
         }else{
             return formatResponse(true,0,$terminal_info);
         }
