@@ -33,7 +33,7 @@ class Terminal
         ]);
         $info = $this->getPostInfo(["key" => config("pay.key")]);
         var_dump($this->postPath);
-        return $saber->post($this->postPath, $info);
+        return false;/*$saber->post($this->postPath, $info);*/
     }
 
     /**
