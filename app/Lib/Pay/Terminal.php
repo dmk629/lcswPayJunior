@@ -32,7 +32,9 @@ class Terminal
             'base_uri' => $rootPath,
             'json' => $info
         ]);
-        return $saber->post(self::POST_PATH, $info);
+        $response = $saber->post(self::POST_PATH, $info);
+        if($response->getStatusCode()!=200)return 200;
+        return $response->getBody();
     }
 
     /**
