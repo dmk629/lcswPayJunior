@@ -108,7 +108,7 @@ class Barcode
             "terminal_trace" => Trace::createTraceNumber(),
             "terminal_time" => date("YmdHis"),
             "auth_no" => $authNo,
-            "total_fee" => $totalFee
+            "total_fee" => (string)$totalFee
         ];
         $info["key_sign"] = $this->createSign($info, $key);
         return $info;
@@ -147,7 +147,7 @@ class Barcode
      * */
     private function createSign($info, $key)
     {
-        ksort($info,SORT_STRING);
+        //ksort($info,SORT_STRING);
         $signString = "";
         foreach($info as $k=>$v){
             $signString .= $k."=".$v."&";
