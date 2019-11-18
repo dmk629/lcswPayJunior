@@ -43,9 +43,9 @@ class Barcode
             'json' => "json"
         ]);
         $payResponse = $saber->post(self::POST_PATH, $info);
+        //var_dump($payResponse);
         if($payResponse->getStatusCode()!=200)return false;
         $payContent = $payResponse->getParsedJsonArray();
-        var_dump($payContent);
         switch($payContent["result_code"]) {
             case "01":
                 Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
@@ -78,7 +78,7 @@ class Barcode
         $rootPath = config("pay.rootPath");
         $payStatus = 0;
         while($payStatus!=="01"){
-            echo "hello;\n";
+            var_dump($queryInfo);
             $saber = Saber::create([
                 'base_uri' => $rootPath,
                 'json' => "json"
@@ -86,7 +86,7 @@ class Barcode
             $content = $saber->post(self::POST_PATH, $queryInfo)->getParsedJsonArray();
             //$content = SaberGM::post($rootPath.self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
             if($content["result_code"]==="01")return $content;
-            var_dump($content);
+            //var_dump($content);
             \Swoole\Coroutine\System::sleep(5);
         }
         return false;
