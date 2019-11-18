@@ -30,7 +30,7 @@ class Terminal
         $info = $this->getPostInfo(["key" => config("pay.key")]);
         $saber = Saber::create([
             //'base_uri' => $rootPath,
-            'base_uri' => "www.baidu.com",
+            'base_uri' => "http://www.baidu.com",
             'json' => "json"
         ]);
         //$response = $saber->post(self::POST_PATH, $info);
