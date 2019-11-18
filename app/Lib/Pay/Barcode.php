@@ -57,7 +57,7 @@ class Barcode
             default:
                 return 66;
         }
-        $queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["terminal_trace"], $payContent["out_trade_no"], ["key" => $key]);
+        $queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["terminal_trace"], $payContent["out_trade_no"], ["access_token" => $key]);
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
         $queryContent = $this->getPayResult($queryInfo);
         if($queryContent){
