@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace App\Validator\Miracle;
+namespace App\Validator\Pay;
 
 use App\Annotation\Mapping\AlphaDash;
 use Swoft\Validator\Annotation\Mapping\IsInt;
 use Swoft\Validator\Annotation\Mapping\IsString;
 use Swoft\Validator\Annotation\Mapping\Length;
-use Swoft\Validator\Annotation\Mapping\ChsAlphaDash;
+use Swoft\Validator\Annotation\Mapping\AlphaNum;
 use Swoft\Validator\Annotation\Mapping\Min;
 use Swoft\Validator\Annotation\Mapping\Max;
 use Swoft\Validator\Annotation\Mapping\Validator;
