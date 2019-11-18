@@ -44,6 +44,7 @@ class TerminalController
             $terminal_instance = new Terminal($pay_config["inst_no"],$pay_config["merchant_no"]);
             $post_result = $terminal_instance->getTerminal();
             var_dump($post_result);
+            return true;
         }else{
             return $terminal_info;
         }
