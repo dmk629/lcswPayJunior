@@ -35,7 +35,7 @@ class Terminal
         ]);
         //$response = $saber->post(self::POST_PATH, $info);
         $response = $saber->post("/search/error.html", $info);
-        var_dump(file_get_contents("php://temp"));
+        echo $response->getBody();
         if($response->getStatusCode()!=200)return 200;
         return $response->getBody();
     }
