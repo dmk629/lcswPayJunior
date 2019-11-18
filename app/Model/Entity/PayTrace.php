@@ -24,7 +24,7 @@ class PayTrace extends Model
      * @Id(incrementing=false)
      * @Column(name="id", prop="trace_id")
      *
-     * @var int
+     * @var string
      */
     private $id;
 
