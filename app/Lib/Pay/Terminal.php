@@ -27,11 +27,11 @@ class Terminal
     public function getTerminal()
     {
         $rootPath = config("pay.rootPath");
+        $info = $this->getPostInfo(["key" => config("pay.key")]);
         $saber = Saber::create([
             'base_uri' => $rootPath,
-            'json' => true
+            'json' => $info
         ]);
-        $info = $this->getPostInfo(["key" => config("pay.key")]);
         var_dump($this->postPath);
         return false;/*$saber->post($this->postPath, $info);*/
     }
