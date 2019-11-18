@@ -23,7 +23,6 @@ class TraceDao
      */
     public function recordTrace(string $traceId, int $terminalId, string $url)
     {
-        var_dump($traceId);
         PayTrace::Insert([
             "id" => $traceId,
             "terminal_id" => $terminalId,
