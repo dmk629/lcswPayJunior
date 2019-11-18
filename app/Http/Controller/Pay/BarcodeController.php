@@ -51,6 +51,8 @@ class BarcodeController
                 return formatResponse(false,1,"Failed");
             case 66:
                 return formatResponse(false,66,"Unknown error");
+            case 67:
+                return formatResponse(false,67,"Query error");
             case 99:
                 return formatResponse(false,99,"Not support");
         }

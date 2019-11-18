@@ -63,7 +63,7 @@ class Barcode
         if($queryContent){
             return $queryContent;
         }else{
-            return 66;
+            return 67;
         }
     }
 
