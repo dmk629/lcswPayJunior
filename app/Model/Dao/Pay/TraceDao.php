@@ -14,14 +14,14 @@ class TraceDao
 {
     /**
      * 记录流水
-     * @var int $traceId
+     * @var string $traceId
      * @var int $terminalId
      * @var string $url
      *
      * @return void
      * @throws Throwable
      */
-    public function recordTrace(int $traceId, int $terminalId, string $url)
+    public function recordTrace(string $traceId, int $terminalId, string $url)
     {
         PayTrace::Insert([
             "id" => $traceId,
