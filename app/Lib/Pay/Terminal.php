@@ -29,12 +29,14 @@ class Terminal
         $rootPath = config("pay.rootPath");
         $info = $this->getPostInfo(["key" => config("pay.key")]);
         $saber = Saber::create([
-            'base_uri' => $rootPath,
+            //'base_uri' => $rootPath,
+            'base_uri' => "www.baidu.com",
             'json' => "json"
         ]);
-        $response = $saber->post(self::POST_PATH, $info);
+        //$response = $saber->post(self::POST_PATH, $info);
+        $response = $saber->post("", $info);
         if($response->getStatusCode()!=200)return 200;
-        return $response->getBody()->customMetadata;
+        return $response->getBody();
     }
 
     /**
