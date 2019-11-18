@@ -13,7 +13,7 @@ class Terminal
     /** @param   string  终端名称 */
     private $name = "测试终端";
     /** @param   string  请求模块 */
-    private $postPath = "/lcsw/terminal/100/add";
+    const POST_PATH = "/lcsw/terminal/100/add";
 
     public function __construct($inst_no, $merchant_no)
     {
@@ -32,8 +32,7 @@ class Terminal
             'base_uri' => $rootPath,
             'json' => $info
         ]);
-        var_dump($this->postPath);
-        return false;/*$saber->post($this->postPath, $info);*/
+        return $saber->post(self::POST_PATH, $info);
     }
 
     /**
