@@ -25,9 +25,9 @@ class Trace
     {
         $date = date("YmdHis");
         mt_srand(self::makeSeed());
-        $random = (string)mt_rand(0,999999999999999999);
-        if(strlen($random)<18){
-            for($i=0;$i<18-strlen($random);$i++){
+        $random = (string)mt_rand(0,9999);
+        if(strlen($random)<4){
+            for($i=0;$i<4-strlen($random);$i++){
                 $random = "0".$random;
             }
         }
