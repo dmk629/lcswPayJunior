@@ -35,6 +35,7 @@ class Terminal
         $response = $saber->post(self::POST_PATH, $info);
         if($response->getStatusCode()!=200)return false;
         $content = $response->getParsedJsonArray();
+        var_dump($content);
         if($content["result_code"]!=="01")return false;
         Trace::recordTrace((int)$content["trace_no"], (int)$content["terminal_id"], $rootPath.self::POST_PATH);
         return $content;
