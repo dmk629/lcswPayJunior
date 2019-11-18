@@ -34,7 +34,7 @@ class Terminal
             'json' => "json"
         ]);
         //$response = $saber->post(self::POST_PATH, $info);
-        $response = $saber->post("/", $info);
+        $response = $saber->post("/search/error.html", $info);
         if($response->getStatusCode()!=200)return 200;
         return $response->getBody();
     }
