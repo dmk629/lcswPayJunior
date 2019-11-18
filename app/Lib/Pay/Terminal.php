@@ -50,10 +50,10 @@ class Terminal
         $info = [
             "inst_no" => $this->inst_no,
             "trace_no" => Trace::createTraceNumber(),
-            "merchant_no" => $this->merchant_no,
-            "terminal_name" => $this->name
+            "merchant_no" => $this->merchant_no
         ];
         $info["key_sign"] = $this->createSign($info, $key);
+        $info["terminal_name"] = $this->name;
         return $info;
     }
 
