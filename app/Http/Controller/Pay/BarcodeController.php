@@ -45,7 +45,7 @@ class BarcodeController
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
         $barcodeInstance = new Barcode($payType,config("pay.merchant_no"));
-        $payResult = $barcodeInstance->payOrder($terminalInfo["terminal_id"], $authNo, $totalFee*100,config("pay.key"));
+        $payResult = $barcodeInstance->payOrder($terminalInfo["terminal_id"], $authNo, (int)($totalFee*100),config("pay.key"));
         switch ($payResult){
             case 2:
                 return formatResponse(false,1,"Failed");
