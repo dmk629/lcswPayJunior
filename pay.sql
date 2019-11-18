@@ -7,7 +7,7 @@ create table pay_terminal(
 )engine=InnoDB DEFAULT charset=utf8 COMMENT "终端信息表";
 
 create table pay_trace(
- `id` int unsigned NOT NULL,
+ `id` char(32) NOT NULL,
  `terminal_id` int unsigned NOT NULL DEFAULT 0 COMMENT "终端号",
  `url` varchar(150) NOT NULL DEFAULT "" COMMENT "请求地址",
  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -15,7 +15,7 @@ create table pay_trace(
 )engine=InnoDB DEFAULT charset=utf8 COMMENT "流水表";
 
 create table pay_order(
- `id` int unsigned NOT NULL,
+ `id` int unsigned NOT NULL AUTO_INCREMENT,
  `terminal_id` int unsigned NOT NULL DEFAULT 0 COMMENT "终端号",
  `terminal_trace` varchar(32) NOT NULL DEFAULT "" COMMENT "终端流水号",
  `total_fee` int NOT NULL DEFAULT 0 COMMENT "金额，单位分",
@@ -27,7 +27,7 @@ create table pay_order(
 )engine=InnoDB DEFAULT charset=utf8 COMMENT "订单表";
 
 create table pay_refund(
- `id` int unsigned NOT NULL,
+ `id` int unsigned NOT NULL AUTO_INCREMENT,
  `terminal_id` int unsigned NOT NULL DEFAULT 0 COMMENT "终端号",
  `terminal_trace` char(32) NOT NULL DEFAULT "" COMMENT "终端流水号",
  `out_trade_no` char(32) NOT NULL DEFAULT "" COMMENT "利楚唯一订单号",
