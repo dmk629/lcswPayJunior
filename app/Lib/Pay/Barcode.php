@@ -104,7 +104,7 @@ class Barcode
             "pay_type" => $this->payType,
             "service_id" => $this->serviceId,
             "merchant_no" => $this->merchantNo,
-            "terminal_id" => $terminalId,
+            "terminal_id" => (string)$terminalId,
             "terminal_trace" => Trace::createTraceNumber(),
             "terminal_time" => date("YmdHis"),
             "auth_no" => $authNo,
