@@ -32,6 +32,7 @@ class Wap
             $getParam .= $key."=".$value."&";
         }
         $getParam = rtrim("&",$getParam);
+        var_dump($rootPath.self::GET_PATH.$getParam);
         $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
         var_dump($payResponse);
         if($payResponse->getStatusCode()!=200)return false;
