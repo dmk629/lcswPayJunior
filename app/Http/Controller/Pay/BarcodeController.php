@@ -56,19 +56,4 @@ class BarcodeController
         return formatResponse(true,0,"Succeed");
     }
 
-    /**
-     * test
-     * @RequestMapping(route="/test",method=RequestMethod::POST)
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function test(Request $request)
-    {
-        BeanFactory::getBean("PlayerDao");
-        //BeanFactory::getBean("TerminalDao");
-    }
-
 }

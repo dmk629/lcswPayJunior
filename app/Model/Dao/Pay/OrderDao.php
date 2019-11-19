@@ -13,6 +13,23 @@ use Throwable;
 class OrderDao
 {
     /**
+     * 订单列表
+     * @param int $page
+     * @param int $size
+     *
+     * @return array
+     * @throws Throwable
+     */
+    public function orderList(int $page, int $size)
+    {
+        $orderList = PayOrder::select("id", "total_fee", "status", "out_trade_no", "create_time")
+            ->orderBy("create_time","desc")
+            ->forPage($page, $size)
+            ->get();
+        return empty($orderList) ? [] : $orderList->toArray();
+    }
+
+    /**
      * 记录订单
      * @var array $orderInfo
      *
@@ -53,10 +70,25 @@ class OrderDao
      * @return array
      * @throws Throwable
      */
-    public function getOrder(string $tradeNo)
+    public function getOrderByTradeNo(string $tradeNo)
     {
         $info = PayOrder::select("terminal_id","total_fee","status")
             ->where("out_trade_no","=",$tradeNo)
+            ->first();
+        return empty($info) ? [] : $info->toArray();
+    }
+
+    /**
+     * 获取订单
+     * @param array $id
+     *
+     * @return array
+     * @throws Throwable
+     */
+    public function getOrderById(array $id)
+    {
+        $info = PayOrder::select("terminal_trace","total_fee","status","out_trade_no")
+            ->where("id","=",$id)
             ->first();
         return empty($info) ? [] : $info->toArray();
     }
