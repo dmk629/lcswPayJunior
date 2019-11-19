@@ -57,6 +57,7 @@ class BarcodeController
                 return formatResponse(false,99,"Not support");
         }
         $orderDao = BeanFactory::getBean("OrderDao");
+        var_dump($payResult);
         $orderDao->addOrder($payResult);
         return formatResponse(true,0,"Succeed");
     }
