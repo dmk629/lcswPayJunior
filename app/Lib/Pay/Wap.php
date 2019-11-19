@@ -16,14 +16,14 @@ class Wap
     }
 
     /**
-     * 请求支付
+     * 生成链接
      * @param int $terminalId
      * @param int $totalFee
      * @param string $key
      *
      * @return mixed
      * */
-    public function payOrder(int $terminalId, int $totalFee, string $key)
+    public function createUrl(int $terminalId, int $totalFee, string $key)
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
@@ -32,13 +32,7 @@ class Wap
             $getParam .= $key."=".$value."&";
         }
         $getParam = rtrim($getParam,"&");
-        var_dump($rootPath.self::GET_PATH.$getParam);
-        $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
-        if($payResponse->getStatusCode()!=200)return false;
-        $payRedirect = $payResponse->redirect_headers;
-        $redirectInfo = array_shift($payRedirect);
-        var_dump($redirectInfo);
-        return $redirectInfo["location"];
+        return $rootPath.self::GET_PATH.$getParam;
     }
 
     /**

@@ -35,9 +35,8 @@ class WapController
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
         $wapInstance = new Wap(config("pay.merchant_no"));
-        $payResult = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
-        if(empty($payResult))formatResponse(false,1,"Failed");
-        return formatResponse(true,0,$payResult);
+        $redirectUrl = $wapInstance->createUrl($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
+        return formatResponse(true,0,$redirectUrl);
     }
 
 }
