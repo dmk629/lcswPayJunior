@@ -36,8 +36,9 @@ class QRPayController
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
         $wapInstance = new QRPay(config("pay.merchant_no"));
-        $redirectUrl = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
-        return formatResponse(true,0,$redirectUrl);
+        $redirectResult = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
+        if(empty($redirectResult))formatResponse(false,1,"Failed");
+        return formatResponse(true,0,$redirectResult);
     }
 
 }

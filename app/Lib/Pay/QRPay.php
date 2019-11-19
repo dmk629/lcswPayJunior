@@ -38,18 +38,11 @@ class QRPay
             'json' => "json"
         ]);
         $payResponse = $saber->post(self::POST_PATH, $info);
-        if($payResponse->getStatusCode()!=200)return 1;
+        if($payResponse->getStatusCode()!=200)return false;
         $payContent = $payResponse->getParsedJsonArray();
-        return $payContent;
-        $orderInsertInfo = [
-            "terminal_id" => $info["terminal_id"],
-            "terminal_trace" => $info["terminal_trace"],
-            "total_fee" => $info["total_fee"]
-        ];
+        if($payContent["result_code"]!=="01")return false;
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
-        $paySucceedInfo = $orderInsertInfo;
-        $paySucceedInfo["out_trade_no"] = $payContent["out_trade_no"];
-        return $paySucceedInfo;
+        return $payContent["qr_url"];
     }
 
     /**
