@@ -32,6 +32,7 @@ class Wap
             $getParam .= $key."=".$value."&";
         }
         $getParam = rtrim($getParam,"&");
+        var_dump($rootPath.self::GET_PATH.$getParam);
         $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
         if($payResponse->getStatusCode()!=200)return false;
         $payRedirect = $payResponse->redirect_headers;
