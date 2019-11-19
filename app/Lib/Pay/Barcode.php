@@ -52,7 +52,8 @@ class Barcode
                 "terminal_id" => $info["terminal_id"],
                 "terminal_trace" => $info["terminal_trace"],
                 "total_fee" => $info["total_fee"],
-                "out_trade_no" => $payContent["out_trade_no"]
+                "out_trade_no" => $payContent["out_trade_no"],
+                "status" => 2
             ];
             case "02":
             case "99":
@@ -70,7 +71,8 @@ class Barcode
                 "terminal_id" => $info["terminal_id"],
                 "terminal_trace" => $info["terminal_trace"],
                 "total_fee" => $info["total_fee"],
-                "out_trade_no" => $queryContent["out_trade_no"]
+                "out_trade_no" => $queryContent["out_trade_no"],
+                "status" => 2
             ];
         }else{
             return 67;

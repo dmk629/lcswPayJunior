@@ -25,7 +25,8 @@ class OrderDao
             "terminal_id" => $orderInfo["terminal_id"],
             "terminal_trace" => $orderInfo["terminal_trace"],
             "total_fee" => $orderInfo["total_fee"],
-            "out_trade_no" => $orderInfo["out_trade_no"]
+            "out_trade_no" => $orderInfo["out_trade_no"],
+            "status" => empty($orderInfo["status"]) ? 1 : $orderInfo["status"]
         ]);
     }
 
