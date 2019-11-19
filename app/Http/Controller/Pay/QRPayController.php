@@ -22,7 +22,7 @@ class QRPayController
 
     /**
      * payForBarcode
-     * @RequestMapping(route="pay",method=RequestMethod::GET)
+     * @RequestMapping(route="pay",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
      *
      * @param Request $request
@@ -32,7 +32,7 @@ class QRPayController
      */
     public function payForQRPay(Request $request)
     {
-        $totalFee = $request->get("total",0);
+        $totalFee = $request->POST("total",0);
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
         $wapInstance = new QRPay(config("pay.merchant_no"));
