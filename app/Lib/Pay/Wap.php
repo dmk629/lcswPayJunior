@@ -31,7 +31,7 @@ class Wap
         foreach($info as $key=>$value){
             $getParam .= $key."=".$value."&";
         }
-        $getParam = rtrim($getParam,"&");
+        $getParam .= "notify_url=".config("pay.notifyModule");
         return $rootPath.self::GET_PATH.$getParam;
     }
 

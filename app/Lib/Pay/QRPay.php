@@ -66,6 +66,7 @@ class QRPay
             "total_fee" => $totalFee
         ];
         $info["key_sign"] = $this->createSign($info, $key);
+        $info["notify_url"] = config("pay.notifyModule");
         return $info;
     }
 
