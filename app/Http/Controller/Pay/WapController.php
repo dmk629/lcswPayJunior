@@ -31,7 +31,7 @@ class WapController
      */
     public function payForWap(Request $request)
     {
-        $totalFee = $request->post("total",0);
+        $totalFee = $request->get("total",0);
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
         $wapInstance = new Wap(config("pay.merchant_no"));
