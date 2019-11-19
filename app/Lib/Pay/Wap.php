@@ -27,13 +27,12 @@ class Wap
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
-        var_dump($info);
         $getParam = "?";
         foreach($info as $key=>$value){
             $getParam .= $key."=".$value."&";
         }
         $getParam = rtrim("&",$getParam);
-        var_dump($rootPath.self::GET_PATH.$getParam);
+        var_dump($getParam);
         return 123;
         $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
         var_dump($payResponse);
