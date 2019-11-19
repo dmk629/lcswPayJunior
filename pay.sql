@@ -23,7 +23,7 @@ create table pay_order(
  `out_trade_no` varchar(32) NOT NULL DEFAULT "" COMMENT "利楚唯一订单号",
  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
  primary key (`id`),
- key `out_trade_no` (`out_trade_no`) USING BTREE
+ unique key `out_trade_no` (`out_trade_no`) USING BTREE
 )engine=InnoDB DEFAULT charset=utf8 COMMENT "订单表";
 
 create table pay_refund(

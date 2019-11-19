@@ -31,15 +31,32 @@ class OrderDao
     }
 
     /**
-     * 获取订单（未完成）
+     * 更新订单状态
+     * @var array $tradeNo
+     * @var int $status
+     *
+     * @return bool
+     * @throws Throwable
+     */
+    public function updateOrderStatus(array $tradeNo, int $status)
+    {
+        return PayOrder::modify(
+            ["out_trade_no" => $tradeNo],
+            ["status" => $status]
+        );
+    }
+
+    /**
+     * 获取订单
+     * @param string $tradeNo
      *
      * @return array
      * @throws Throwable
      */
-    public function getOrder()
+    public function getOrder(string $tradeNo)
     {
-        $info = PayOrder::select("terminal_id","url")
-            ->where("id","=","1")
+        $info = PayOrder::select("terminal_id","total_fee","status")
+            ->where("out_trade_no","=",$tradeNo)
             ->first();
         return empty($info) ? [] : $info->toArray();
     }
