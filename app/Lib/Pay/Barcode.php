@@ -1,7 +1,6 @@
 <?php
 namespace App\Lib\Pay;
 
-use Swlib\SaberGM;
 use Swlib\Saber;
 
 class Barcode
@@ -45,16 +44,18 @@ class Barcode
         $payResponse = $saber->post(self::POST_PATH, $info);
         if($payResponse->getStatusCode()!=200)return false;
         $payContent = $payResponse->getParsedJsonArray();
+        $orderInsertInfo = [
+            "terminal_id" => $info["terminal_id"],
+            "terminal_trace" => $info["terminal_trace"],
+            "total_fee" => $info["total_fee"],
+            "status" => 2
+        ];
         switch($payContent["result_code"]) {
             case "01":
                 Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
-            return [
-                "terminal_id" => $info["terminal_id"],
-                "terminal_trace" => $info["terminal_trace"],
-                "total_fee" => $info["total_fee"],
-                "out_trade_no" => $payContent["out_trade_no"],
-                "status" => 2
-            ];
+                $paySucceedInfo = $orderInsertInfo;
+                $paySucceedInfo["out_trade_no"] = $payContent["out_trade_no"];
+            return $paySucceedInfo;
             case "02":
             case "99":
                 return (int)$payContent["result_code"];
@@ -67,13 +68,9 @@ class Barcode
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
         $queryContent = $this->getPayResult($queryInfo);
         if($queryContent){
-            return [
-                "terminal_id" => $info["terminal_id"],
-                "terminal_trace" => $info["terminal_trace"],
-                "total_fee" => $info["total_fee"],
-                "out_trade_no" => $queryContent["out_trade_no"],
-                "status" => 2
-            ];
+            $querySucceedInfo = $orderInsertInfo;
+            $querySucceedInfo["out_trade_no"] = $queryContent["out_trade_no"];
+            return $querySucceedInfo;
         }else{
             return 67;
         }
@@ -96,7 +93,6 @@ class Barcode
             ]);
             $content = $saber->post(self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
             if($content["result_code"]==="01")return $content;
-            var_dump($content);
             \Swoole\Coroutine::sleep(5);
         }
         return false;
