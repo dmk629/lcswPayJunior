@@ -55,7 +55,7 @@ class OrderController
     public function orderRefund(Request $request)
     {
         $id = $request->post("id",0);
-        $orderDao = BeanFactory::getBean("orderDao");
+        $orderDao = BeanFactory::getBean("OrderDao");
         $orderInfo = $orderDao->getOrderById($id);
         $terminalInfo = BeanFactory::getBean("TerminalDao")->getTerminal();
         if(empty($orderInfo))formatResponse(false,1,"Empty order");
@@ -72,9 +72,9 @@ class OrderController
                 break;
         }
         $updateResult = $orderDao->updateOrderStatus([$orderInfo["out_trade_no"]], 3);
-        if(empty($updateResult))formatResponse(false,5,"Refund failed");
-        //入库退款
-
+        if(empty($updateResult))formatResponse(false,6,"Internal error");
+        $refundResult["status"] = 2;
+        BeanFactory::getBean("RefundDao")->addRefund($refundResult);
         formatResponse(true, 0, "Succeed");
     }
 
