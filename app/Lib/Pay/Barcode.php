@@ -32,7 +32,7 @@ class Barcode
      * @param int $totalFee
      * @param string $key
      *
-     * @return int
+     * @return mixed
      * */
     public function payOrder(int $terminalId, string $authNo, int $totalFee, string $key)
     {
@@ -48,6 +48,12 @@ class Barcode
         switch($payContent["result_code"]) {
             case "01":
                 Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
+            return [
+                "terminal_id" => $info["terminal_id"],
+                "terminal_trace" => $info["terminal_trace"],
+                "total_fee" => $info["total_fee"],
+                "out_trade_no" => $payContent["out_trade_no"]
+            ];
             case "02":
             case "99":
                 return (int)$payContent["result_code"];
@@ -60,7 +66,12 @@ class Barcode
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
         $queryContent = $this->getPayResult($queryInfo);
         if($queryContent){
-            return $queryContent;
+            return [
+                "terminal_id" => $info["terminal_id"],
+                "terminal_trace" => $info["terminal_trace"],
+                "total_fee" => $info["total_fee"],
+                "out_trade_no" => $queryContent["out_trade_no"]
+            ];
         }else{
             return 67;
         }

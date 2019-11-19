@@ -22,10 +22,10 @@ class OrderDao
     public function addOrder(array $orderInfo)
     {
         PayOrder::Insert([
-            "terminal_id" => $orderInfo,
-            "terminal_trace" => $orderInfo,
-            "total_fee" => $orderInfo,
-            "out_trade_no" => $orderInfo
+            "terminal_id" => $orderInfo["terminal_id"],
+            "terminal_trace" => $orderInfo["terminal_trace"],
+            "total_fee" => $orderInfo["total_fee"],
+            "out_trade_no" => $orderInfo["out_trade_no"]
         ]);
     }
 
