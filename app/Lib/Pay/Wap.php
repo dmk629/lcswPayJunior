@@ -29,9 +29,9 @@ class Wap
         $info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
         $payResponse = SaberGM::get($rootPath.self::GET_PATH, $info);
         if($payResponse->getStatusCode()!=200)return 1;
-        //$payContent = $payResponse->getParsedJsonArray();
         $payRedirect = $payResponse->redirect_headers;
-        var_dump($payRedirect);
+        $redirectInfo = array_shift($payRedirect);
+        var_dump($redirectInfo);
         /*$queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["terminal_trace"], $payContent["out_trade_no"], ["access_token" => $key]);
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);*/
     }
