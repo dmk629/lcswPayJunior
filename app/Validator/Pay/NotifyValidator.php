@@ -118,7 +118,7 @@ class NotifyValidator
     /**
      * @IsString(message="格式不正确")
      * @AlphaNum(message="格式不正确")
-     * @Length(min=0,max=32message="长度不正确")
+     * @Length(min=0,max=32,message="长度不正确")
      * @var string
      */
     protected $out_trade_no;
@@ -126,14 +126,14 @@ class NotifyValidator
     /**
      * @IsString(message="格式不正确")
      * @AlphaNum(message="格式不正确")
-     * @Length(min=0,max=32message="长度不正确")
+     * @Length(min=0,max=32,message="长度不正确")
      * @var string
      */
     protected $channel_trade_no;
 
     /**
      * @IsString(message="格式不正确")
-     * @Length(min=0,max=128message="长度不正确")
+     * @Length(min=0,max=128,message="长度不正确")
      * @var string
      */
     protected $attach;
