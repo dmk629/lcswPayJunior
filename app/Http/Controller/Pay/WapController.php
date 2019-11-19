@@ -36,17 +36,8 @@ class WapController
         $terminalInfo = $terminalDao->getTerminal();
         $wapInstance = new Wap(config("pay.merchant_no"));
         $payResult = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
-/*        switch ($payResult){
-            case 2:
-                return formatResponse(false,1,"Failed");
-            case 66:
-                return formatResponse(false,66,"Unknown error");
-            case 67:
-                return formatResponse(false,67,"Query error");
-            case 99:
-                return formatResponse(false,99,"Not support");
-        }*/
-        return formatResponse(true,0,"Succeed");
+        if(empty($payResult))formatResponse(false,1,"Failed");
+        return formatResponse(true,0,$payResult);
     }
 
 }
