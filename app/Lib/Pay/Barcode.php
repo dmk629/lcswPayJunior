@@ -42,7 +42,7 @@ class Barcode
             'json' => "json"
         ]);
         $payResponse = $saber->post(self::POST_PATH, $info);
-        if($payResponse->getStatusCode()!=200)return false;
+        if($payResponse->getStatusCode()!=200)return 1;
         $payContent = $payResponse->getParsedJsonArray();
         $orderInsertInfo = [
             "terminal_id" => $info["terminal_id"],
