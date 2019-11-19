@@ -26,8 +26,7 @@ class Wap
     public function payOrder(int $terminalId, int $totalFee, string $key)
     {
         $rootPath = config("pay.rootPath");
-        //$info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
-        $info = $this->getPayInfo($terminalId, $totalFee, ["key" => $key]);
+        $info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
         $getParam = "?";
         foreach($info as $key=>$value){
             $getParam .= $key."=".$value."&";
