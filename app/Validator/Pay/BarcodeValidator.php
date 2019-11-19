@@ -37,4 +37,12 @@ class BarcodeValidator
      */
     protected $total;
 
+    /**
+     * @IsString(message="格式不正确")
+     * @AlphaNum(message="付款码不正确")
+     * @Length(min=3,max=3,message="长度不正确")
+     * @var string
+     */
+    protected $type;
+
 }

@@ -20,17 +20,12 @@ use Throwable;
  */
 class BarcodeController
 {
-    /**
-     * Maximum number of participants
-     * @param int
-     */
-    private $max_count = 12;
 
     /**
      * payForBarcode
      * @RequestMapping(route="pay",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
-     * @Validate(validator="BarcodeValidator",fields={"barcode","total"})
+     * @Validate(validator="BarcodeValidator")
      *
      * @param Request $request
      *
