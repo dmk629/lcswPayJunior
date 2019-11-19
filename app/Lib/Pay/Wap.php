@@ -31,7 +31,7 @@ class Wap
         foreach($info as $key=>$value){
             $getParam .= $key."=".$value."&";
         }
-        $getParam = rtrim("&",$getParam);
+        $getParam = rtrim($getParam,"&");
         var_dump($getParam);
         return 123;
         $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
