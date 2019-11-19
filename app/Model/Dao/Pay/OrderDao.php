@@ -57,10 +57,7 @@ class OrderDao
      */
     public function updateOrderStatus(array $tradeNo, int $status)
     {
-        return PayOrder::modify(
-            ["out_trade_no" => $tradeNo],
-            ["status" => $status]
-        );
+        return PayOrder::whereIn("out_trade_no", $tradeNo)->update(["status" => $status]);
     }
 
     /**
@@ -87,7 +84,7 @@ class OrderDao
      */
     public function getOrderById(array $id)
     {
-        $info = PayOrder::select("terminal_trace","total_fee","status","out_trade_no")
+        $info = PayOrder::select("terminal_trace","total_fee","status","out_trade_no","create_time")
             ->where("id","=",$id)
             ->first();
         return empty($info) ? [] : $info->toArray();

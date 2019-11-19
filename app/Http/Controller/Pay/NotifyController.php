@@ -40,7 +40,7 @@ class NotifyController
         $orderInfo = $orderDao->getOrderByTradeNo($message["out_trade_no"]);
         if(empty($orderInfo) || ($orderInfo["total_fee"]!=$message["total_fee"]))return context()->getResponse()->withData(Notify::returnMessage(false,"订单不存在"));
         if($orderInfo["status"]==2)return context()->getResponse()->withData(Notify::returnMessage(true,"成功"));
-        $updateResult = $orderDao->updateOrderStatus($message["out_trade_no"], 2);
+        $updateResult = $orderDao->updateOrderStatus([$message["out_trade_no"]], 2);
         if($updateResult==false)return context()->getResponse()->withData(Notify::returnMessage(false,"内部错误"));
         return context()->getResponse()->withData(Notify::returnMessage(true,"成功"));
     }

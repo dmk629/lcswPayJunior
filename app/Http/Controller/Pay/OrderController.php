@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller\Pay;
 
+use App\Lib\Pay\Refund;
 use Swoft\Http\Server\Annotation\Mapping\Controller;
 use Swoft\Http\Server\Annotation\Mapping\RequestMapping;
 use Swoft\Http\Server\Annotation\Mapping\RequestMethod;
@@ -43,7 +44,7 @@ class OrderController
 
     /**
      * orderRefund
-     * @RequestMapping(route="list",method=RequestMethod::POST)
+     * @RequestMapping(route="refund",method=RequestMethod::POST)
      * @Validate(validator="BarcodeValidator",field={"id"})
      *
      * @param Request $request
@@ -56,7 +57,23 @@ class OrderController
         $id = $request->post("id",0);
         $orderDao = BeanFactory::getBean("orderDao");
         $orderInfo = $orderDao->getOrderById($id);
+        $terminalInfo = BeanFactory::getBean("TerminalDao")->getTerminal();
         if(empty($orderInfo))formatResponse(false,1,"Empty order");
+        if($orderInfo["status"] != 2)formatResponse(false,2,"Status error");
+        if(strtotime($orderInfo["create_time"]) + 2592000 <= time())formatResponse(false,3,"Order expired");
+        $refundInstance = new Refund(config("pay.merchant_no"));
+        $refundResult = $refundInstance->refundOrder($terminalInfo["terminal_id"], $orderInfo["total_fee"], $orderInfo["out_trade_no"], $terminalInfo["access_token"]);
+        switch ($refundResult) {
+            case 1:
+                formatResponse(false,4,"Network error");
+                break;
+            case 2:
+                formatResponse(false,5,"Refund failed");
+                break;
+        }
+        $updateResult = $orderDao->updateOrderStatus([$orderInfo["out_trade_no"]], 3);
+        if(empty($updateResult))formatResponse(false,5,"Refund failed");
+        //入库退款
 
         formatResponse(true, 0, "Succeed");
     }

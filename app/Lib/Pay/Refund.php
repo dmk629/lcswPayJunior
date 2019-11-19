@@ -16,9 +16,8 @@ class Refund
     /** @param   string  请求模块 */
     const POST_PATH = "/lcsw/pay/100/refund";
 
-    public function __construct($payType, $merchantNo)
+    public function __construct($merchantNo)
     {
-        $this->payType = $payType;
         $this->merchantNo = $merchantNo;
     }
 
@@ -31,10 +30,10 @@ class Refund
      *
      * @return mixed
      * */
-    public function payOrder(int $terminalId, int $refundFee, string $tradeNo, string $key)
+    public function refundOrder(int $terminalId, int $refundFee, string $tradeNo, string $key)
     {
         $rootPath = config("pay.rootPath");
-        $info = $this->getPayInfo($terminalId, $refundFee, $tradeNo, ["access_token" => $key]);
+        $info = $this->getRefundInfo($terminalId, $refundFee, $tradeNo, ["access_token" => $key]);
         $saber = Saber::create([
             'base_uri' => $rootPath,
             'json' => "json"
@@ -44,7 +43,8 @@ class Refund
         $payContent = $payResponse->getParsedJsonArray();
         if($payContent["return_code"]!="01")return 1;
         if($payContent["result_code"]!="01")return 2;
-        return true;
+        Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
+        return $payContent;
     }
 
     /**
@@ -56,7 +56,7 @@ class Refund
      *
      * @return array
      * */
-    private function getPayInfo(int $terminalId, int $refundFee, string $tradeNo, array $key)
+    private function getRefundInfo(int $terminalId, int $refundFee, string $tradeNo, array $key)
     {
         $info = [
             "pay_ver" => $this->version,
