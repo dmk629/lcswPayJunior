@@ -14,23 +14,22 @@ use Throwable;
 
 /**
  * WapController
- * @Controller(prefix="/wap/v1")
+ * @Controller(prefix="/qrpay/v1")
  */
-class WapController
+class QRPayController
 {
 
     /**
      * payForBarcode
      * @RequestMapping(route="pay",method=RequestMethod::GET)
      * @Middleware(ControllerMiddleware::class)
-     * @Validate(validator="WapValidator")
      *
      * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function payForWap(Request $request)
+    public function payForQRPay(Request $request)
     {
         $totalFee = $request->get("total",0);
         $terminalDao = BeanFactory::getBean("TerminalDao");
