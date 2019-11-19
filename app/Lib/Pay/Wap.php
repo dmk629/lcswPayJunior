@@ -33,10 +33,10 @@ class Wap
         }
         $getParam = rtrim($getParam,"&");
         $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
-        var_dump($payResponse);
         if($payResponse->getStatusCode()!=200)return false;
         $payRedirect = $payResponse->redirect_headers;
         $redirectInfo = array_shift($payRedirect);
+        var_dump($redirectInfo);
         return $redirectInfo["location"];
     }
 
@@ -69,6 +69,7 @@ class Wap
      * */
     private function createSign($info, $key)
     {
+        ksort($info,SORT_STRING);
         $signString = "";
         foreach($info as $k=>$v){
             $signString .= $k."=".$v."&";
