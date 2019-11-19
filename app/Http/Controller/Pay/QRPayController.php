@@ -9,7 +9,7 @@ use App\Exception\ApiException;
 use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use App\Http\Middleware\ControllerMiddleware;
 use Swoft\Bean\BeanFactory;
-use App\Lib\Pay\Wap;
+use App\Lib\Pay\QRPay;
 use Throwable;
 
 /**
@@ -34,8 +34,8 @@ class QRPayController
         $totalFee = $request->get("total",0);
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
-        $wapInstance = new Wap(config("pay.merchant_no"));
-        $redirectUrl = $wapInstance->createUrl($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
+        $wapInstance = new QRPay(config("pay.merchant_no"));
+        $redirectUrl = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
         return formatResponse(true,0,$redirectUrl);
     }
 
