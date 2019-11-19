@@ -27,7 +27,12 @@ class Wap
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
-        $payResponse = SaberGM::get($rootPath.self::GET_PATH, $info);
+        $getParam = "?";
+        foreach($info as $key=>$value){
+            $getParam .= $key."=".$value."&";
+        }
+        $getParam = rtrim("&",$getParam);
+        $payResponse = SaberGM::get($rootPath.self::GET_PATH.$getParam);
         if($payResponse->getStatusCode()!=200)return false;
         $payRedirect = $payResponse->redirect_headers;
         $redirectInfo = array_shift($payRedirect);
