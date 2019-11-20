@@ -24,8 +24,8 @@ class WapValidator
 
     /**
      * @IsFloat(message="格式不正确")
-     * @Min(value=0,message="格式不正确")
-     * @Max(value=99999999,message="格式不正确")
+     * @Min(value=0,message="支付金额不能小于0")
+     * @Max(value=99999999,message="支付金额过大")
      * @var int
      */
     protected $total;

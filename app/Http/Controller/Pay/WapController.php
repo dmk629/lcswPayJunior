@@ -24,7 +24,6 @@ class WapController
      * payForBarcode
      * @RequestMapping(route="pay",method=RequestMethod::GET)
      * @Middleware(ControllerMiddleware::class)
-     * @Validate(validator="WapValidator")
      *
      * @param Request $request
      *
