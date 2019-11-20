@@ -31,7 +31,8 @@ class Wap
         foreach($info as $key=>$value){
             $getParam .= $key."=".$value."&";
         }
-        $getParam .= "notify_url=".config("pay.notifyModule");
+        //$getParam .= "notify_url=".config("pay.notifyModule");
+        $getParam = rtrim($getParam,"&");
         Trace::recordTrace($info["terminal_trace"], (int)$info["terminal_id"], $rootPath.self::GET_PATH);
         return $rootPath.self::GET_PATH.$getParam;
     }
@@ -51,7 +52,8 @@ class Wap
             "terminal_id" => (string)$terminalId,
             "terminal_trace" => Trace::createTraceNumber(),
             "terminal_time" => date("YmdHis"),
-            "total_fee" => $totalFee
+            "notify_url" => config("pay.notifyModule"),
+            "total_fee" => $totalFee,
         ];
         $info["key_sign"] = $this->createSign($info, $key);
         return $info;
