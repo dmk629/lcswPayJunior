@@ -63,6 +63,7 @@ class QRPay
             "terminal_id" => (string)$terminalId,
             "terminal_trace" => Trace::createTraceNumber(),
             "terminal_time" => date("YmdHis"),
+            "notify_url" => config("pay.notifyModule"),
             "total_fee" => $totalFee
         ];
         $info["key_sign"] = $this->createSign($info, $key);
