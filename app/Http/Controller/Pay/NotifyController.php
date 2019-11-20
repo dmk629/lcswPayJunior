@@ -33,15 +33,21 @@ class NotifyController
     public function index(Request $request)
     {
         $message = $request->post();
+        var_dump($message);
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
-        if(!Notify::verifySign($message,$terminalInfo["access_token"]))return context()->getResponse()->withData(Notify::returnMessage(false,"验签失败"));
+        if(!Notify::verifySign($message,$terminalInfo["access_token"])){
+            echo "验签失败\n";
+            return context()->getResponse()->withData(Notify::returnMessage(false,"验签失败"));
+        }
         $orderDao = BeanFactory::getBean("OrderDao");
-        $orderInfo = $orderDao->getOrderByTradeNo($message["out_trade_no"]);
-        if(empty($orderInfo) || ($orderInfo["total_fee"]!=$message["total_fee"]))return context()->getResponse()->withData(Notify::returnMessage(false,"订单不存在"));
-        if($orderInfo["status"]==2)return context()->getResponse()->withData(Notify::returnMessage(true,"成功"));
-        $updateResult = $orderDao->updateOrderStatus([$message["out_trade_no"]], 2);
-        if($updateResult==false)return context()->getResponse()->withData(Notify::returnMessage(false,"内部错误"));
+        $orderDao->addOrder([
+            "terminal_id" => $message["terminal_id"],
+            "terminal_trace" => $message["terminal_trace"],
+            "total_fee" => $message["total_fee"],
+            "out_trade_no" => $message["out_trade_no"],
+            "status" => empty($message["status"]) ? 1 : $message["status"]
+        ]);
         return context()->getResponse()->withData(Notify::returnMessage(true,"成功"));
     }
 

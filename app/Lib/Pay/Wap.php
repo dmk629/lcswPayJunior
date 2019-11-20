@@ -32,6 +32,7 @@ class Wap
             $getParam .= $key."=".$value."&";
         }
         $getParam .= "notify_url=".config("pay.notifyModule");
+        Trace::recordTrace($info["terminal_trace"], (int)$info["terminal_id"], $rootPath.self::POST_PATH);
         return $rootPath.self::GET_PATH.$getParam;
     }
 
