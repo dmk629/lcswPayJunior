@@ -24,6 +24,7 @@ class NotifyController
      * receiveNotify
      * @RequestMapping(route="index",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
+     * @Validate(validator="NotifyValidator")
      *
      * @param Request $request
      *
