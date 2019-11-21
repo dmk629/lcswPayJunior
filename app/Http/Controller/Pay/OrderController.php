@@ -34,7 +34,7 @@ class OrderController
      */
     public function orderList(Request $request)
     {
-        $orderDao = BeanFactory::getBean("orderDao");
+        $orderDao = BeanFactory::getBean("OrderDao");
         $page = $request->post("page",0);
         $size = $request->post("size",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);

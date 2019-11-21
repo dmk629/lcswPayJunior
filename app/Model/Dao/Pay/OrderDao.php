@@ -10,7 +10,7 @@ use Throwable;
  *
  * @since 2.0
  */
-class OrderDao1
+class OrderDao
 {
     /**
      * 订单列表
