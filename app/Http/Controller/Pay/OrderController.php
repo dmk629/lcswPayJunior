@@ -45,7 +45,7 @@ class OrderController
     /**
      * orderRefund
      * @RequestMapping(route="refund",method=RequestMethod::POST)
-     * @Validate(validator="BarcodeValidator",field={"id"})
+     * @Validate(validator="OrderValidator",field={"id"})
      *
      * @param Request $request
      *
