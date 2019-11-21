@@ -75,7 +75,7 @@ class OrderController
     {
         $id = $request->post("id",0);
         $orderDao = BeanFactory::getBean("OrderDao");
-        $orderInfo = $orderDao->getOrderById($id);
+        $orderInfo = $orderDao->getOrderById([$id]);
         $terminalInfo = BeanFactory::getBean("TerminalDao")->getTerminal();
         if(empty($orderInfo))formatResponse(false,1,"Empty order");
         if($orderInfo["status"] != 2)formatResponse(false,2,"Status error");
