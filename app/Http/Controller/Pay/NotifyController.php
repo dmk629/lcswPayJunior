@@ -34,6 +34,7 @@ class NotifyController
     public function index(Request $request)
     {
         var_dump($request->getRawBody());
+        return 1;
         $message = $request->post();
         $terminalDao = BeanFactory::getBean("TerminalDao");
         $terminalInfo = $terminalDao->getTerminal();
