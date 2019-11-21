@@ -85,8 +85,7 @@ class Barcode
     private function getPayResult($queryInfo)
     {
         $rootPath = config("pay.rootPath");
-        $payStatus = 0;
-        while($payStatus!=="01"){
+        for($i = 0;$i < 15;$i++){
             $saber = Saber::create([
                 'base_uri' => $rootPath,
                 'json' => "json"
