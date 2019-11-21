@@ -77,24 +77,24 @@ class OrderController
         $orderDao = BeanFactory::getBean("OrderDao");
         $orderInfo = $orderDao->getOrderById([$id]);
         $terminalInfo = BeanFactory::getBean("TerminalDao")->getTerminal();
-        if(empty($orderInfo))formatResponse(false,1,"Empty order");
-        if($orderInfo["order_status"] != 2)formatResponse(false,2,"Status error");
-        if(strtotime($orderInfo["create_time"]) + 2592000 <= time())formatResponse(false,3,"Order expired");
+        if(empty($orderInfo))return formatResponse(false,1,"Empty order");
+        if($orderInfo["order_status"] != 2)return formatResponse(false,2,"Status error");
+        if(strtotime($orderInfo["create_time"]) + 2592000 <= time())return formatResponse(false,3,"Order expired");
         $refundInstance = new Refund(config("pay.merchant_no"));
         $refundResult = $refundInstance->refundOrder($terminalInfo["terminal_id"], $orderInfo["total_fee"], $orderInfo["out_trade_no"], $terminalInfo["access_token"]);
         switch ($refundResult) {
             case 1:
-                formatResponse(false,4,"Network error");
+                return formatResponse(false,4,"Network error");
                 break;
             case 2:
-                formatResponse(false,5,"Refund failed");
+                return formatResponse(false,5,"Refund failed");
                 break;
         }
         $updateResult = $orderDao->updateOrderStatus([$orderInfo["out_trade_no"]], 3);
-        if(empty($updateResult))formatResponse(false,6,"Internal error");
+        if(empty($updateResult))return formatResponse(false,6,"Internal error");
         $refundResult["status"] = 2;
         BeanFactory::getBean("RefundDao")->addRefund($refundResult);
-        formatResponse(true, 0, "Succeed");
+        return formatResponse(true, 0, "Succeed");
     }
 
     /**
