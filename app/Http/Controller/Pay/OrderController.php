@@ -38,9 +38,8 @@ class OrderController
         $page = $request->post("page",0);
         $size = $request->post("size",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
-        var_dump($orderList);
-        if(empty($orderList))formatResponse(false,1,"Empty order");
-        formatResponse(true, 0, $orderList);
+        if(empty($orderList))return formatResponse(false,1,"Empty order");
+        return formatResponse(true, 0, $orderList);
     }
 
     /**
