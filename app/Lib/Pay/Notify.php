@@ -56,7 +56,7 @@ class Notify
      * */
     private static function createSign($info, $key)
     {
-        ksort($info,SORT_STRING);
+        //ksort($info,SORT_STRING);
         $signString = "";
         foreach($info as $k=>$v){
             $signString .= $k."=".$v."&";
