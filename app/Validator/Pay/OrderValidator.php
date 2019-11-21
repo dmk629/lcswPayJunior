@@ -35,7 +35,7 @@ class OrderValidator
      * @Max(value=999,message="格式不正确")
      * @var int
      */
-    protected $size = 12;
+    protected $limit = 12;
 
     /**
      * @IsInt(message="格式不正确")

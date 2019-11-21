@@ -24,8 +24,8 @@ class OrderController
 
     /**
      * orderList
-     * @RequestMapping(route="list",method=RequestMethod::POST)
-     * @Validate(validator="OrderValidator",fields={"page","size"})
+     * @RequestMapping(route="list",method=RequestMethod::GET)
+     * @Validate(validator="OrderValidator",fields={"page","limit"})
      *
      * @param Request $request
      *
@@ -35,8 +35,8 @@ class OrderController
     public function orderList(Request $request)
     {
         $orderDao = BeanFactory::getBean("OrderDao");
-        $page = $request->post("page",0);
-        $size = $request->post("size",config("page.font"));
+        $page = $request->get("page",0);
+        $size = $request->post("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
         if(empty($orderList))return formatResponse(false,1,"Empty order");
         return formatResponse(true, 0, $orderList);
