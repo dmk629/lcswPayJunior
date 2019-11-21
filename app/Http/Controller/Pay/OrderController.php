@@ -25,7 +25,7 @@ class OrderController
     /**
      * orderList
      * @RequestMapping(route="list",method=RequestMethod::POST)
-     * @Validate(validator="OrderValidator",field={"page","size"})
+     * @Validate(validator="OrderValidator",fields={"page","size"})
      *
      * @param Request $request
      *
@@ -45,7 +45,7 @@ class OrderController
     /**
      * orderRefund
      * @RequestMapping(route="refund",method=RequestMethod::POST)
-     * @Validate(validator="OrderValidator",field={"id"})
+     * @Validate(validator="OrderValidator",fields={"id"})
      *
      * @param Request $request
      *
