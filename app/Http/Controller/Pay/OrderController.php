@@ -25,7 +25,6 @@ class OrderController
     /**
      * orderList
      * @RequestMapping(route="list",method=RequestMethod::GET)
-     * @Validate(validator="OrderValidator",fields={"page","limit"})
      *
      * @param Request $request
      *
