@@ -37,8 +37,9 @@ class OrderController
         $page = (int)$request->get("page",0);
         $size = (int)$request->get("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
-        if(empty($orderList))return formatResponse(false,1,"Empty order");
-        return formatResponse(true, 0, $orderList);
+        //if(empty($orderList))return formatResponse(false,1,"Empty order");
+        if(empty($orderList))return context()->getRepsonse()->withData(["code"=>0, "count"=>0, []]);
+        return context()->getRepsonse()->withData(["code"=>0, "count"=>count($orderList), $orderList]);
     }
 
     /**
