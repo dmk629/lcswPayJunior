@@ -12,6 +12,7 @@ use Swoft\Http\Server\Annotation\Mapping\Middleware;
 use App\Http\Middleware\ControllerMiddleware;
 use Swoft\Validator\Annotation\Mapping\Validate;
 use Swoft\Bean\BeanFactory;
+use Swoft\Context\Context;
 use Throwable;
 
 /**
@@ -37,9 +38,8 @@ class OrderController
         $page = (int)$request->get("page",0);
         $size = (int)$request->get("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
-        //if(empty($orderList))return context()->getResponse()->withData(["code"=>0, "count"=>0, []]);
-        if(empty($orderList))return \Swoft\Context\Context::mustGet()->getResponse()->withData(["code"=>0, "msg"=>"Empty order", "count"=>0, "data"=>[]]);
-        return \Swoft\Context\Context::mustGet()->getResponse()->withData(["code"=>0, "msg"=>"Succeed", "count"=>count($orderList), "data"=>$orderList]);
+        if(empty($orderList))return context()->getResponse()->withData(["code"=>0, "msg"=>"Empty order", "count"=>0, "data"=>[]]);
+        return context()->getResponse()->withData(["code"=>0, "msg"=>"Succeed", "count"=>count($orderList), "data"=>$orderList]);
     }
 
     /**
