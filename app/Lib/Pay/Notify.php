@@ -28,7 +28,7 @@ class Notify
             "out_trade_no" => $message["out_trade_no"],
             "channel_trade_no" => $message["channel_trade_no"],
             "attach" => $message["attach"],
-            "receipt_fee" => $message["receipt_fee"],
+            "receipt_fee" => $message["receipt_fee"]
         ];
         $signString = self::createSign($signArray, ["access_token" => $key]);
         if($signString!==$message["key_sign"])return false;
