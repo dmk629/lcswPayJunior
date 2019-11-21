@@ -37,9 +37,9 @@ class OrderController
         $page = (int)$request->get("page",0);
         $size = (int)$request->get("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
-        //if(empty($orderList))return formatResponse(false,1,"Empty order");
-        if(empty($orderList))return context()->getRepsonse()->withData(["code"=>0, "count"=>0, []]);
-        return context()->getRepsonse()->withData(["code"=>0, "count"=>count($orderList), $orderList]);
+        //if(empty($orderList))return context()->getResponse()->withData(["code"=>0, "count"=>0, []]);
+        if(empty($orderList))return \Swoft\Context\Context::mustGet()->getResponse()->withData(["code"=>0, "count"=>0, []]);
+        return \Swoft\Context\Context::mustGet()->getResponse()->withData(["code"=>0, "count"=>count($orderList), $orderList]);
     }
 
     /**
