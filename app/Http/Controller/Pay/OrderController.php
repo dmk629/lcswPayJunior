@@ -25,7 +25,7 @@ class OrderController
     /**
      * orderList
      * @RequestMapping(route="list",method=RequestMethod::POST)
-     * @Validate(validator="BarcodeValidator",field={"page","size"})
+     * @Validate(validator="OrderValidator",field={"page","size"})
      *
      * @param Request $request
      *
