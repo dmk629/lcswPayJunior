@@ -38,8 +38,8 @@ class OrderController
         $page = (int)$request->get("page",0);
         $size = (int)$request->get("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
-        if(empty($orderList))return context()->getResponse()->withData(["code"=>0, "msg"=>"Empty order", "count"=>0, "data"=>[]]);
-        return context()->getResponse()->withData(["code"=>0, "msg"=>"Succeed", "count"=>count($orderList), "data"=>$orderList]);
+        if(empty($orderList))return $this->layUIReturn(0, "Empty order", 0, []);
+        return $this->layUIReturn(0, "Succeed", count($orderList), $orderList);
     }
 
     /**
@@ -76,6 +76,22 @@ class OrderController
         $refundResult["status"] = 2;
         BeanFactory::getBean("RefundDao")->addRefund($refundResult);
         formatResponse(true, 0, "Succeed");
+    }
+
+    /**
+     * LayUIReturn
+     *
+     * @param int $code
+     * @param string $msg
+     * @param int $count
+     * @param array $data
+     *
+     * @return mixed
+     * @throws Throwable
+     * */
+    private function layUIReturn(int $code, string $msg, int $count, array $data)
+    {
+        return context()->getResponse()->withData(["code"=>$code, "msg"=>$msg, "count"=>$count, "data"=>$data]);
     }
 
 }
