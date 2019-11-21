@@ -39,6 +39,25 @@ class OrderController
         $size = (int)$request->get("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
         if(empty($orderList))return $this->layUIReturn(0, "Empty order", 0, []);
+        foreach($orderList as $index=>$value){
+            $orderList[$index]["total_fee"] = $value["total_fee"]/100;
+            switch ($value["order_status"]){
+                case 1:
+                    $orderList[$index]["order_status"] = "未支付";
+                    break;
+                case 2:
+                    $orderList[$index]["order_status"] = "已支付";
+                    break;
+                case 3:
+                    $orderList[$index]["order_status"] = "已退款";
+                    break;
+                case 0:
+                    $orderList[$index]["order_status"] = "失败";
+                    break;
+                default:
+                    $orderList[$index]["order_status"] = "未知";
+            }
+        }
         return $this->layUIReturn(0, "Succeed", count($orderList), $orderList);
     }
 
