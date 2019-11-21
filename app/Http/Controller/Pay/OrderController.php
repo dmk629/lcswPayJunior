@@ -78,7 +78,7 @@ class OrderController
         $orderInfo = $orderDao->getOrderById([$id]);
         $terminalInfo = BeanFactory::getBean("TerminalDao")->getTerminal();
         if(empty($orderInfo))formatResponse(false,1,"Empty order");
-        if($orderInfo["status"] != 2)formatResponse(false,2,"Status error");
+        if($orderInfo["order_status"] != 2)formatResponse(false,2,"Status error");
         if(strtotime($orderInfo["create_time"]) + 2592000 <= time())formatResponse(false,3,"Order expired");
         $refundInstance = new Refund(config("pay.merchant_no"));
         $refundResult = $refundInstance->refundOrder($terminalInfo["terminal_id"], $orderInfo["total_fee"], $orderInfo["out_trade_no"], $terminalInfo["access_token"]);
