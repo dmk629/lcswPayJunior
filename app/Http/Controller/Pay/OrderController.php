@@ -36,7 +36,7 @@ class OrderController
     {
         $orderDao = BeanFactory::getBean("OrderDao");
         $page = $request->get("page",0);
-        $size = $request->post("limit",config("page.font"));
+        $size = $request->get("limit",config("page.font"));
         $orderList = $orderDao->orderList($page, $size);
         if(empty($orderList))return formatResponse(false,1,"Empty order");
         return formatResponse(true, 0, $orderList);
