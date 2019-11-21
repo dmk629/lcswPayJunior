@@ -24,6 +24,7 @@ class NotifyController
      * receiveNotify
      * @RequestMapping(route="index",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
+     * @Middleware(NotifyMiddleware::class)
      * @Validate(validator="NotifyValidator")
      *
      * @param Request $request
@@ -31,11 +32,9 @@ class NotifyController
      * @return mixed
      * @throws Throwable
      */
-    //public function index(Request $request)
-    public function index()
+    public function index(Request $request)
     {
-        //context()->getRequest();
-        //var_dump($request->getContents());
+        var_dump($request->getContents());
         return 1;
         $message = $request->post();
         $terminalDao = BeanFactory::getBean("TerminalDao");
