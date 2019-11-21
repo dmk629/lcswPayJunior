@@ -31,9 +31,11 @@ class NotifyController
      * @return mixed
      * @throws Throwable
      */
-    public function index(Request $request)
+    //public function index(Request $request)
+    public function index()
     {
-        var_dump($request->getRawBody());
+        //context()->getRequest();
+        //var_dump($request->getContents());
         return 1;
         $message = $request->post();
         $terminalDao = BeanFactory::getBean("TerminalDao");
