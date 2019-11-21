@@ -41,13 +41,16 @@ class NotifyController
             return context()->getResponse()->withData(Notify::returnMessage(false,"验签失败"));
         }
         $orderDao = BeanFactory::getBean("OrderDao");
-        $orderDao->addOrder([
-            "terminal_id" => $message["terminal_id"],
-            "terminal_trace" => $message["terminal_trace"],
-            "total_fee" => $message["total_fee"],
-            "out_trade_no" => $message["out_trade_no"],
-            "status" => empty($message["status"]) ? 2 : $message["status"]
-        ]);
+        $orderInfo = $orderDao->getOrderByTradeNo($message["out_trade_no"]);
+        if(empty($orderInfo)){
+            $orderDao->addOrder([
+                "terminal_id" => $message["terminal_id"],
+                "terminal_trace" => $message["terminal_trace"],
+                "total_fee" => $message["total_fee"],
+                "out_trade_no" => $message["out_trade_no"],
+                "status" => empty($message["status"]) ? 2 : $message["status"]
+            ]);
+        }
         return context()->getResponse()->withData(Notify::returnMessage(true,"成功"));
     }
 
