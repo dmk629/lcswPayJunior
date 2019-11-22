@@ -9,12 +9,13 @@ class Trace
      * @param string $traceId
      * @param int $terminalId
      * @param string $url
+     * @param string $createTime
      * @return void
      * */
-    public static function recordTrace(string $traceId, int $terminalId, string $url)
+    public static function recordTrace(string $traceId, int $terminalId, string $url, $createTime)
     {
         $traceDao = BeanFactory::getBean("TraceDao");
-        $traceDao->recordTrace($traceId, $terminalId, $url);
+        $traceDao->recordTrace($traceId, $terminalId, $url, $createTime);
     }
 
     /**
