@@ -39,6 +39,7 @@ class QRPayController
         $redirectResult = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
         if(empty($redirectResult))return context()->getResponse()->withData(["status"=>false,"errcode"=>1,"data"=>"Failed"]);
         $requestUrl = $request->url();
+        $requestUrl = str_replace("/","",strstr($requestUrl,":",TRUE));
         var_dump($requestUrl);
         return context()->getResponse()->withCookie("trace_id",["value"=>$redirectResult["trace_id"],"path"=>"/","domain"=>$requestUrl])->withData(["status"=>true,"errcode"=>0,"data"=>$redirectResult["redirect_url"]]);
     }
