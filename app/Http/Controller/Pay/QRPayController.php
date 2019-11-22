@@ -53,7 +53,7 @@ class QRPayController
     public function test(Request $request)
     {
         $cookie = $request->getCookieParams();
-        $request->withCookieParams(["test"=>"test"]);
+        context()->getResponse()->withCookie("test","test");
         return formatResponse(true,0,$cookie);
     }
 
