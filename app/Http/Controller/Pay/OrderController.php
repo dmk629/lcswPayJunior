@@ -116,7 +116,7 @@ class OrderController
         $traceInfo = BeanFactory::getBean("TraceDao")->getTraceById($cookie["trace_id"]);
         if(empty($traceInfo))return formatResponse(false, 2, "Empty trace");
         $queryInstance = new Query(config("pay.merchant_no"));
-        $queryResult = $queryInstance->payQuery($traceInfo["terminal_id"], $cookie["trace_id"], ["access_token"=>$terminalInfo["access_token"]], "", $traceInfo["create_time"]);
+        $queryResult = $queryInstance->payQuery($traceInfo["terminal_id"], $cookie["trace_id"], $terminalInfo["access_token"], "", $traceInfo["create_time"]);
         if(empty($queryResult))return formatResponse(false, 3, "No pay");
         return formatResponse(true, 0, $queryResult);
     }

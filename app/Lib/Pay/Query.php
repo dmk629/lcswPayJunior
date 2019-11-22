@@ -65,12 +65,12 @@ class Query
      * @param int $terminalId
      * @param string $traceId
      * @param string $orderNo
-     * @param array $key
+     * @param string $key
      * @param string $traceTime (可选，$orderNo为空时必填)
      *
      * @return array
      * */
-    private function getQueryInfo(int $terminalId, string $traceId, array $key, string $orderNo = "", string $traceTime = "")
+    private function getQueryInfo(int $terminalId, string $traceId, string $key, string $orderNo = "", string $traceTime = "")
     {
         $info = [
             "pay_ver" => $this->version,
@@ -82,7 +82,7 @@ class Query
             "terminal_time" => date("YmdHis"),
             "out_trade_no" => $orderNo
         ];
-        $info["key_sign"] = $this->createSign($info, $key);
+        $info["key_sign"] = $this->createSign($info, ["access_token" => $key]);
         if(empty($orderNo)) {
             $info["pay_trace"] = $traceId;
             $info["pay_time"] = $traceTime;
