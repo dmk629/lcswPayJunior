@@ -22,7 +22,7 @@ class OrderDao
      */
     public function orderList(int $page, int $size)
     {
-        $orderList = PayOrder::select("id", "total_fee", "status", "out_trade_no", "create_time")
+        $orderList = PayOrder::select("id", "total_fee", "status", "out_trade_no", "create_time","terminal_trace")
             ->orderBy("create_time","desc")
             ->forPage($page, $size)
             ->get();
