@@ -31,7 +31,7 @@ class Query
      *
      * @return mixed
      * */
-    public function payQuery(int $terminalId, string $traceId, array $key, string $orderNo, string $traceTime)
+    public function payQuery(int $terminalId, string $traceId, string $key, string $orderNo, string $traceTime)
     {
         $queryInfo = $this->getQueryInfo($terminalId, $traceId, ["access_token" => $key], $orderNo, $traceTime);
         $queryContent = $this->getPayResult($queryInfo);
@@ -70,7 +70,7 @@ class Query
      *
      * @return array
      * */
-    private function getQueryInfo(int $terminalId, string $traceId, string $key, string $orderNo = "", string $traceTime = "")
+    private function getQueryInfo(int $terminalId, string $traceId, array $key, string $orderNo = "", string $traceTime = "")
     {
         $info = [
             "pay_ver" => $this->version,
@@ -82,7 +82,7 @@ class Query
             "terminal_time" => date("YmdHis"),
             "out_trade_no" => $orderNo
         ];
-        $info["key_sign"] = $this->createSign($info, ["access_token" => $key]);
+        $info["key_sign"] = $this->createSign($info, $key);
         if(empty($orderNo)) {
             $info["pay_trace"] = $traceId;
             $info["pay_time"] = $traceTime;
