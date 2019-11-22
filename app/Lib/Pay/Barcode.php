@@ -52,7 +52,7 @@ class Barcode
         ];
         switch($payContent["result_code"]) {
             case "01":
-                Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);//成功记录
+                Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH, $info["terminal_time"]);//成功记录
                 $paySucceedInfo = $orderInsertInfo;
                 $paySucceedInfo["out_trade_no"] = $payContent["out_trade_no"];
             return $paySucceedInfo;
@@ -65,7 +65,7 @@ class Barcode
                 return 66;
         }
         $queryInfo = $this->getQueryInfo($payContent["terminal_id"], $info["terminal_trace"], $payContent["out_trade_no"], ["access_token" => $key]);
-        Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
+        Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH, $queryInfo["terminal_time"]);
         $queryContent = $this->getPayResult($queryInfo);
         if($queryContent){
             $querySucceedInfo = $orderInsertInfo;

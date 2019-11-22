@@ -33,7 +33,7 @@ class Wap
         }
         //$getParam .= "notify_url=".config("pay.notifyModule");
         $getParam = rtrim($getParam,"&");
-        Trace::recordTrace($info["terminal_trace"], (int)$info["terminal_id"], $rootPath.self::GET_PATH);
+        Trace::recordTrace($info["terminal_trace"], (int)$info["terminal_id"], $rootPath.self::GET_PATH, $info["terminal_time"]);
         return $rootPath.self::GET_PATH.$getParam;
     }
 

@@ -43,7 +43,7 @@ class Refund
         $payContent = $payResponse->getParsedJsonArray();
         if($payContent["return_code"]!="01")return 1;
         if($payContent["result_code"]!="01")return 2;
-        Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH);
+        Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH, $info["terminal_time"]);
         return $payContent;
     }
 

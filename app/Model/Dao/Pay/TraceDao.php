@@ -17,17 +17,20 @@ class TraceDao
      * @var string $traceId
      * @var int $terminalId
      * @var string $url
+     * @var string $createTime
      *
      * @return void
      * @throws Throwable
      */
-    public function recordTrace(string $traceId, int $terminalId, string $url)
+    public function recordTrace(string $traceId, int $terminalId, string $url, string $createTime = "")
     {
-        PayTrace::Insert([
+        $insertArray = [
             "id" => $traceId,
             "terminal_id" => $terminalId,
             "url" => $url
-        ]);
+        ];
+        if(!empty($createTime))$insertArray["create_time"] = $createTime;
+        PayTrace::Insert($insertArray);
     }
 
     /**
