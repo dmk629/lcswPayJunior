@@ -16,6 +16,7 @@ use Throwable;
 /**
  * WapController
  * @Controller(prefix="/qrpay/v1")
+ * @Middleware(ControllerMiddleware::class)
  */
 class QRPayController
 {
@@ -23,7 +24,6 @@ class QRPayController
     /**
      * payForBarcode
      * @RequestMapping(route="pay",method=RequestMethod::POST)
-     * @Middleware(ControllerMiddleware::class)
      *
      * @param Request $request
      *
@@ -39,6 +39,21 @@ class QRPayController
         $redirectResult = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
         if(empty($redirectResult))formatResponse(false,1,"Failed");
         return formatResponse(true,0,$redirectResult);
+    }
+
+    /**
+     * test
+     * @RequestMapping(route="/test,method=RequestMethod::POST)
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function test(Request $request)
+    {
+        $request->withCookieParams(["test"=>"test"]);
+        return formatResponse(true,0,"test");
     }
 
 }
