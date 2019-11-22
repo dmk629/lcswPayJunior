@@ -34,13 +34,13 @@ class TraceDao
     }
 
     /**
-     * 获取流水（未完成）
+     * 获取流水
      * @param string $traceId
      *
      * @return array
      * @throws Throwable
      */
-    public function getTerminal(string $traceId)
+    public function getTraceById(string $traceId)
     {
         $info = PayTrace::select("create_time","url")
             ->where("id","=",$traceId)

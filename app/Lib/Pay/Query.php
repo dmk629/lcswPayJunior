@@ -9,6 +9,8 @@ class Query
     private $version = "100";
     /** @param   string  接口类型 */
     private $serviceId = "010";
+    /** @param   string  支付类型 */
+    private $payType = "000";
     /** @param   string  商户号 */
     private $merchantNo;
     /** @param   string  查询模块 */
@@ -20,17 +22,18 @@ class Query
     }
 
     /**
-     * 查询
+     * 单号查询
      * @param int $terminalId
      * @param string $traceId
-     * @param string $orderNo
      * @param array $key
+     * @param string $orderNo
+     * @param string $traceTime （可选）
      *
      * @return mixed
      * */
-    public function payOrder(int $terminalId, string $traceId, string $orderNo, array $key)
+    public function payQuery(int $terminalId, string $traceId, array $key, string $orderNo, string $traceTime)
     {
-        $queryInfo = $this->getQueryInfo($terminalId, $traceId, $orderNo, ["access_token" => $key]);
+        $queryInfo = $this->getQueryInfo($terminalId, $traceId, ["access_token" => $key], $orderNo);
         $queryContent = $this->getPayResult($queryInfo);
         return $queryContent ? $queryContent : false;
     }
@@ -62,20 +65,21 @@ class Query
      * @param string $traceId
      * @param string $orderNo
      * @param array $key
+     * @param string $traceTime (可选，$orderNo为空时必填)
      *
      * @return array
      * */
-    private function getQueryInfo(int $terminalId, string $traceId, string $orderNo, array $key)
+    private function getQueryInfo(int $terminalId, string $traceId, array $key, string $orderNo = "", string $traceTime = "")
     {
         $info = [
             "pay_ver" => $this->version,
-            "pay_type" => "000",
+            "pay_type" => $this->payType,
             "service_id" => $this->serviceId,
             "merchant_no" => $this->merchantNo,
             "terminal_id" => $terminalId,
             "terminal_trace" => $traceId,
-            "terminal_time" => date("YmdHis"),
-            "out_trade_no" => $orderNo,
+            "terminal_time" => empty($orderNo) ? $traceTime : date("YmdHis"),
+            "out_trade_no" => $orderNo
         ];
         $info["key_sign"] = $this->createSign($info, $key);
         return $info;
