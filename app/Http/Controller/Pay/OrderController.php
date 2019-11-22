@@ -46,10 +46,10 @@ class OrderController
                     $orderList[$index]["order_status"] = "未支付";
                     break;
                 case 2:
-                    $orderList[$index]["order_status"] = "已支付";
+                    $orderList[$index]["order_status"] = "支付成功";
                     break;
                 case 3:
-                    $orderList[$index]["order_status"] = "已退款";
+                    $orderList[$index]["order_status"] = "退款成功";
                     break;
                 case 0:
                     $orderList[$index]["order_status"] = "失败";
