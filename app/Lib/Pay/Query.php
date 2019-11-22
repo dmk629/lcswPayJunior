@@ -53,6 +53,7 @@ class Query
         ]);
         for($i = 0;$i < 15;$i++){
             $content = $saber->post(self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
+            var_dump($content);
             if($content["result_code"]==="01")return $content;
             \Swoole\Coroutine::sleep(5);
         }
