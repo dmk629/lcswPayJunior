@@ -14,9 +14,9 @@ class TraceDao
 {
     /**
      * 记录流水
-     * @var string $traceId
-     * @var int $terminalId
-     * @var string $url
+     * @param string $traceId
+     * @param int $terminalId
+     * @param string $url
      * @var string $createTime
      *
      * @return void
@@ -35,14 +35,15 @@ class TraceDao
 
     /**
      * 获取流水（未完成）
+     * @param string $traceId
      *
      * @return array
      * @throws Throwable
      */
-    public function getTerminal()
+    public function getTerminal(string $traceId)
     {
-        $info = PayTrace::select("terminal_id","url")
-            ->where("id","=","1")
+        $info = PayTrace::select("create_time","url")
+            ->where("id","=",$traceId)
             ->first();
         return empty($info) ? [] : $info->toArray();
     }
