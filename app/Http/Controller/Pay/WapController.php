@@ -38,7 +38,6 @@ class WapController
         $wapInstance = new Wap(config("pay.merchant_no"));
         $redirectResult = $wapInstance->createUrl($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
         return context()->getResponse()->withCookie("trace_id",["value"=>$redirectResult["trace_id"],"path"=>"/"])->withData(["status"=>true,"errcode"=>0,"data"=>$redirectResult["redirect_url"]]);
-
     }
 
 }

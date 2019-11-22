@@ -13,6 +13,7 @@ use App\Http\Middleware\ControllerMiddleware;
 use Swoft\Validator\Annotation\Mapping\Validate;
 use Swoft\Bean\BeanFactory;
 use Swoft\Context\Context;
+use App\Lib\Pay\Query;
 use Throwable;
 
 /**
@@ -108,31 +109,16 @@ class OrderController
      */
     public function orderQuery(Request $request)
     {
-        $orderDao = BeanFactory::getBean("OrderDao");
-        $page = (int)$request->get("page",0);
-        $size = (int)$request->get("limit",config("page.font"));
-        $orderList = $orderDao->orderList($page, $size);
-        if(empty($orderList))return $this->layUIReturn(0, "Empty order", 0, []);
-        foreach($orderList as $index=>$value){
-            $orderList[$index]["total_fee"] = $value["total_fee"]/100;
-            switch ($value["order_status"]){
-                case 1:
-                    $orderList[$index]["order_status"] = "未支付";
-                    break;
-                case 2:
-                    $orderList[$index]["order_status"] = "已支付";
-                    break;
-                case 3:
-                    $orderList[$index]["order_status"] = "已退款";
-                    break;
-                case 0:
-                    $orderList[$index]["order_status"] = "失败";
-                    break;
-                default:
-                    $orderList[$index]["order_status"] = "未知";
-            }
-        }
-        return $this->layUIReturn(0, "Succeed", count($orderList), $orderList);
+        $terminalDao = BeanFactory::getBean("TerminalDao");
+        $terminalInfo = $terminalDao->getTerminal();
+        $cookie = $request->getCookieParams();
+        if(empty($cookie["trace_id"]))return formatResponse(false, 1, "Empty trace");
+        $traceInfo = BeanFactory::getBean("TraceDao")->getTraceById($cookie["trace_id"]);
+        if(empty($traceInfo))return formatResponse(false, 2, "Empty trace");
+        $queryInstance = new Query(config("pay.merchant_no"));
+        $queryResult = $queryInstance->payQuery($traceInfo["terminal_id"], $cookie["trace_id"], $terminalInfo["access_token"], "", $traceInfo["create_time"]);
+        if(empty($queryResult))return formatResponse(false, 3, "No pay");
+        return formatResponse(true, 0, $queryResult);
     }
 
     /**

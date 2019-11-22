@@ -42,7 +42,7 @@ class TraceDao
      */
     public function getTraceById(string $traceId)
     {
-        $info = PayTrace::select("create_time","url")
+        $info = PayTrace::select("create_time","url","terminal_id")
             ->where("id","=",$traceId)
             ->first();
         return empty($info) ? [] : $info->toArray();
