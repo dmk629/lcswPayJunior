@@ -52,6 +52,7 @@ class Query
             'json' => "json"
         ]);
         for($i = 0;$i < 15;$i++){
+            var_dump($queryInfo);
             $content = $saber->post(self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
             var_dump($content);
             if($content["result_code"]==="01")return $content;
