@@ -41,19 +41,4 @@ class QRPayController
         return context()->getResponse()->withCookie("trace_id",["value"=>$redirectResult["trace_id"],"path"=>"/"])->withData(["status"=>true,"errcode"=>0,"data"=>$redirectResult["redirect_url"]]);
     }
 
-    /**
-     * test
-     * @RequestMapping(route="/test",method=RequestMethod::POST)
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function test(Request $request)
-    {
-        $cookie = $request->getCookieParams();
-        return context()->getResponse()->withCookie("test","test")->withData(["status"=>true,"errcode"=>0,"data"=>$cookie]);
-    }
-
 }
