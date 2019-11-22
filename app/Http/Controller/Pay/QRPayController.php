@@ -41,7 +41,7 @@ class QRPayController
         /*$requestUrl = $request->url();
         $requestUrl = str_replace("/","",strstr($requestUrl,":",TRUE));
         var_dump($requestUrl);*/
-        return context()->getResponse()->withCookie("trace_id",["value"=>$redirectResult["trace_id"],"path"=>"/","domain"=>"47.104.220.101"])->withData(["status"=>true,"errcode"=>0,"data"=>$redirectResult["redirect_url"]]);
+        return context()->getResponse()->withCookie("trace_id",["value"=>$redirectResult["trace_id"],"path"=>"/","domain"=>"pay.dnfmiracle.xyz"])->withCookie("trace_id",["value"=>$redirectResult["trace_id"],"path"=>"/","domain"=>"saobei.dnfmiracle.xyz"])->withData(["status"=>true,"errcode"=>0,"data"=>$redirectResult["redirect_url"]]);
     }
 
 }
