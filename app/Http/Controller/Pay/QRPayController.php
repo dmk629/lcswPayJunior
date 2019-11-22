@@ -37,8 +37,8 @@ class QRPayController
         $terminalInfo = $terminalDao->getTerminal();
         $wapInstance = new QRPay(config("pay.merchant_no"));
         $redirectResult = $wapInstance->payOrder($terminalInfo["terminal_id"], (int)($totalFee*100),$terminalInfo["access_token"]);
-        if(empty($redirectResult))formatResponse(false,1,"Failed");
-        return formatResponse(true,0,$redirectResult);
+        if(empty($redirectResult))return context()->getResponse()->withData(["status"=>false,"errcode"=>1,"data"=>"Failed"]);
+        return context()->getResponse()->withCookie("trace_id",$redirectResult["trace_id"])->withData(["status"=>true,"errcode"=>0,"data"=>$redirectResult["redirect_url"]]);
     }
 
     /**
