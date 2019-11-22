@@ -43,7 +43,7 @@ class QRPayController
 
     /**
      * test
-     * @RequestMapping(route="/test,method=RequestMethod::POST)
+     * @RequestMapping(route="/test",method=RequestMethod::POST)
      *
      * @param Request $request
      *
