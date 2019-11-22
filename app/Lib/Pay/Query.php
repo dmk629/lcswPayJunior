@@ -22,7 +22,7 @@ class Query
     }
 
     /**
-     * 单号查询
+     * 查询
      * @param int $terminalId
      * @param string $traceId
      * @param array $key
@@ -33,7 +33,7 @@ class Query
      * */
     public function payQuery(int $terminalId, string $traceId, array $key, string $orderNo, string $traceTime)
     {
-        $queryInfo = $this->getQueryInfo($terminalId, $traceId, ["access_token" => $key], $orderNo);
+        $queryInfo = $this->getQueryInfo($terminalId, $traceId, ["access_token" => $key], $orderNo, $traceTime);
         $queryContent = $this->getPayResult($queryInfo);
         return $queryContent ? $queryContent : false;
     }
@@ -78,10 +78,14 @@ class Query
             "merchant_no" => $this->merchantNo,
             "terminal_id" => $terminalId,
             "terminal_trace" => $traceId,
-            "terminal_time" => empty($orderNo) ? $traceTime : date("YmdHis"),
+            "terminal_time" => date("YmdHis"),
             "out_trade_no" => $orderNo
         ];
         $info["key_sign"] = $this->createSign($info, $key);
+        if(empty($orderNo)) {
+            $info["pay_trace"] = $traceId;
+            $info["pay_time"] = $traceTime;
+        }
         return $info;
     }
 
