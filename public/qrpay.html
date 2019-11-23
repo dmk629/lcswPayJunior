@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>聚合码支付</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="images/saobei.ico">
+    <link rel="bookmark" type="image/x-icon" href="images/saobei.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="css/elegant-fonts.css">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="css/swiper.min.css">
+
+    <!-- LayUI CSS -->
+    <link rel="stylesheet" href="vendor/layUI/css/layui.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="single-page about-page">
+<header class="site-header">
+    <div class="nav-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="site-branding d-flex align-items-center">
+                        <a class="d-block" href="index.html" rel="home"><img class="d-block" src="images/logo.png" alt="logo"></a>
+                    </div><!-- .site-branding -->
+
+                    <nav class="site-navigation d-flex justify-content-end align-items-center">
+                        <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+                            <li class="current-menu-item"><a href="index.html">首页</a></li>
+                            <li><a href="login.html">登陆</a></li>
+                        </ul>
+                    </nav><!-- .site-navigation -->
+
+                    <div class="hamburger-menu d-lg-none">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div><!-- .hamburger-menu -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .nav-bar -->
+</header><!-- .site-header -->
+
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>聚合码支付</h1>
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .page-header -->
+
+    <div class="welcome-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 order-2 order-lg-1">
+                    <div class="welcome-content">
+                        <header class="entry-header">
+                            <p>输入金额后扫描右侧二维码完成支付</p>
+                        </header><!-- .entry-header -->
+
+                        <div class="entry-content mt-5">
+                            <form class="form" method="post">
+                                <div class="form-group">
+                                    <label for="totalInput">金额</label>
+                                    <input type="text" class="form-control" id="totalInput" placeholder="请输入金额..." name="total" />
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn gradient-bg" type="submit">&nbsp;&nbsp;生成二维码&nbsp;&nbsp;</button>
+                                </div>
+                            </form>
+                        </div><!-- .entry-content -->
+                    </div><!-- .welcome-content -->
+                </div><!-- .col -->
+
+                <div class="col-12 col-lg-6 order-1 order-lg-2" id="wapQRCode">
+                    <img src="images/wap_pay_logo.png" alt="二维码" style="width: 415px;height: 337px;" />
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </div><!-- .home-page-icon-boxes -->
+
+    <script type='text/javascript' src='js/jQuery3.4.1.js'></script>
+    <script type='text/javascript' src='js/jQuery.form.js'></script>
+    <script type='text/javascript' src='js/path_config.js'></script>
+    <script type='text/javascript' src='vendor/layer/2.4/layer.js'></script>
+    <script type="text/javascript" src="js/qrcode.min.js"></script>
+    <script type="text/javascript">
+        $().ready(function() {
+            let options = {
+                "url":urlObj.root_path + "/api/v1/qrpay/pay",
+                "type": "post",
+                "dataType": "json",
+                "beforeSend": function (xhr) {
+                    layer.load(0);
+                },
+                "complete": function (xhr) {
+                    layer.closeAll('loading');
+                },
+                "success": function (msg) {
+                    if (msg.status) {
+                        let QRCodeDivObj = document.getElementById("wapQRCode");
+                        $(QRCodeDivObj).html("");
+                        new QRCode(QRCodeDivObj, {
+                            width : 300,
+                            height : 300
+                        }).makeCode(msg.data);
+                        setTimeout(function(){ queryOrderStatus(); }, 3000);
+                    } else {
+                        layer.msg("服务繁忙，请稍后再试");
+                    }
+                }
+            };
+            $("form").ajaxForm(options);
+        });
+
+        /*
+        * 查询订单支付状态
+        * */
+        function queryOrderStatus(){
+            $.ajax({
+                "url":urlObj.root_path + "/api/v1/order/query",
+                "type":"GET",
+                "beforeSend": function(xhr){
+                    layer.load(2);
+                },
+                "complete": function(xhr,ts){
+                    layer.closeAll('loading');
+                },
+                "dataType": "json",
+                "success": function(msg){
+                    if (msg.status) {
+                        layer.alert('支付成功');
+                    }else{
+                        switch (msg.errcode){
+                            case 1:
+                            case 2:
+                                layer.alert('订单不存在');
+                                break;
+                            case 3:
+                                layer.alert('未完成支付，请重试');
+                                break;
+                            default:
+                                layer.alert('未知错误');
+                                break;
+                        }
+                    }
+                    //location.reload();
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="images/saobei.ico">
+    <link rel="bookmark" type="image/x-icon" href="images/saobei.ico">
+ 
+    <title>管理</title>
+ 
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="css/elegant-fonts.css">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+
+    <!-- LayUI CSS -->
+    <link rel="stylesheet" href="vendor/layUI/css/layui.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+	<style>
+      .site-header {background-color: #eee;}
+	</style>
+ 
+  </head>
+ 
+  <body class="single-page contact-page">
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+            <div class="site-branding d-flex align-items-center">
+              <a class="d-block" href="index.html" rel="home"><img class="d-block" src="images/logo.png" alt="logo"></a>
+            </div><!-- .site-branding -->
+
+            <nav class="site-navigation d-flex justify-content-end align-items-center">
+              <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+                  <li><a href="index.html">首页</a></li>
+                  <li class="current-menu-item"><a href="order.html">管理</a></li>
+              </ul>
+            </nav><!-- .site-navigation -->
+          </div><!-- .col -->
+        </div><!-- .row -->
+      </div><!-- .container -->
+    </div><!-- .nav-bar -->
+  </header><!-- .site-header -->
+
+    <div class="container-lg">
+       <table id="orderList" lay-filter="order"></table>
+    </div>
+  <script type='text/javascript' src='vendor/layUI/layui.js'></script>
+  <script type='text/javascript' src='js/jquery.js'></script>
+  <script type='text/javascript' src='js/path_config.js'></script>
+  <script type='text/javascript'>
+      //数据表
+      layui.use('table', function(){
+          let table = layui.table;
+          //数据表
+          table.render({
+              elem: '#orderList'
+              ,height: 600
+              ,url: urlObj.root_path + '/api/v1/order/list'
+              ,page: true //开启分页
+              ,limit: 12
+              ,cols: [[ //表头
+                  {field: 'order_id', title: '订单ID'}
+                  ,{field: 'out_trade_no', title: '订单号'}
+                  ,{field: 'terminal_trace', title: '流水号'}
+                  ,{field: 'total_fee', title: '价格'}
+                  ,{field: 'order_status', title: '订单状态'}
+                  ,{field: 'create_time', title: '生成时间'}
+                  ,{field: 'edit', title: '操作',toolbar: '#orderButton'}
+              ]]
+          });
+          //数据表工具条
+          table.on('tool(order)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+              let data = obj.data;
+              let layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+              let tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+              if(layEvent === 'refund'){
+                  if(tr.children("td").eq(3).children("div").html()==="已支付"){
+                      layer.confirm('确认要退款吗？', function(index){
+                          $.post(
+                              urlObj.root_path + "/order/v1/refund",
+                              {"id":data.order_id},
+                              function(msg){
+                                  if(msg.status){
+                                      alert("退款成功");
+                                      location.reload();
+                                  }else{
+                                      switch (msg.errcode){
+                                          case 1:
+                                              layer.alert('订单不存在');
+                                              break;
+                                          case 2:
+                                          case 3:
+                                              layer.alert('该订单无法退款');
+                                              break;
+                                          case 4:
+                                          case 6:
+                                              layer.alert('网络繁忙，请稍后再试');
+                                              break;
+                                          case 5:
+                                              layer.alert('退款失败');
+                                              break;
+                                          default:
+                                              layer.alert('未知错误');
+                                              break;
+                                      }
+                                  }
+                              }
+                          );
+                      });
+                  }else{
+                      layer.alert('该订单无法退款');
+                  }
+              } else {
+                  layer.alert('未知错误');
+              }
+          });
+      });
+  </script>
+  <script type="text/html" id="orderButton">
+      {{#  if(d.order_status == "支付成功"){ }}
+      <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="refund">退款</a>
+      {{#  } }}
+  </script>
+  </body>
+</html>

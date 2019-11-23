@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="images/saobei.ico">
+    <link rel="bookmark" type="image/x-icon" href="images/saobei.ico">
+ 
+    <title>登陆</title>
+ 
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- ElegantFonts CSS -->
+    <link rel="stylesheet" href="css/elegant-fonts.css">
+
+    <!-- themify-icons CSS -->
+    <link rel="stylesheet" href="css/themify-icons.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="css/swiper.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+	<style>
+      .site-header {
+        background-color: #eee;
+      }
+
+      .form-signin {
+        max-width: 330px;
+        padding: 20px;
+        margin: 100px 0 100px 770px;
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        text-align:center;
+        margin-bottom: 10px;
+      }
+      .form-signin .checkbox {
+        font-weight: normal;
+        font-size: 15px;
+      }
+      .form-signin .form-control {
+        position: relative;
+        height: auto;
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        padding: 10px;
+        font-size: 16px;
+      }
+      .form-signin .form-control:focus {
+        z-index: 2;
+      }
+      .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+      .btn-primary {
+        background-color: #9BCD9B;
+        border-color: #9BCD9B;
+      }
+      .btn-primary:hover {
+        background-color: #7CCD7C;
+        border-color: #7CCD7C;
+      }
+      .form-group {
+        margin-top: 30px;
+      }
+      .form-group:last-child {
+        margin-bottom: 100px;
+      }
+	</style>
+ 
+  </head>
+ 
+  <body class="single-page contact-page">
+  <header class="site-header">
+    <div class="nav-bar">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+            <div class="site-branding d-flex align-items-center">
+              <a class="d-block" href="index.html" rel="home"><img class="d-block" src="images/logo.png" alt="logo"></a>
+            </div><!-- .site-branding -->
+
+            <nav class="site-navigation d-flex justify-content-end align-items-center">
+              <ul class="d-flex flex-column flex-lg-row justify-content-lg-end align-content-center">
+                <li><a href="index.html">首页</a></li>
+                <li class="current-menu-item"><a href="index.html">登陆</a></li>
+              </ul>
+            </nav><!-- .site-navigation -->
+          </div><!-- .col -->
+        </div><!-- .row -->
+      </div><!-- .container -->
+    </div><!-- .nav-bar -->
+  </header><!-- .site-header -->
+
+  <div class="login-page login-background">
+    <div class="container">
+   <form class="form-signin">
+        <h2 class="form-signin-heading">订单管理</h2>
+        <div class="form-group">
+          <label for="userName">账号</label>
+          <input type="text" class="form-control" id="userName" placeholder="请输入用户名..." name="user" />
+        </div>
+        <div class="form-group">
+          <label for="userPassword">密码</label>
+          <input type="password" class="form-control" id="userPassword" placeholder="请输入密码..." name="password" />
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me"> 保持登陆
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <!--<button class="btn btn-lg btn-primary btn-block" id="check" type="submit">登陆</button>-->
+          <a class="btn btn-lg btn-primary btn-block" href="/order.html">登陆</a>
+        </div>
+      </form>
+ 
+    </div>
+  </div>
+  </body>
+</html>
