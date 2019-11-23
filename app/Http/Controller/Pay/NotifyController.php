@@ -15,7 +15,7 @@ use Throwable;
 
 /**
  * NotifyController
- * @Controller(prefix="/notify/v1")
+ * @Controller(prefix="/api/v1/notify")
  */
 class NotifyController
 {

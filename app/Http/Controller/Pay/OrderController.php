@@ -18,7 +18,7 @@ use Throwable;
 
 /**
  * OrderController
- * @Controller(prefix="/order/v1")
+ * @Controller(prefix="/api/v1/order")
  * @Middleware(ControllerMiddleware::class)
  */
 class OrderController

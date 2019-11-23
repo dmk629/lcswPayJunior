@@ -12,7 +12,7 @@ use Throwable;
 
 /**
  * TerminalController
- * @Controller(prefix="/terminal/v1")
+ * @Controller(prefix="/api/v1/terminal")
  */
 class TerminalController
 {

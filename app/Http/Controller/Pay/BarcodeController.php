@@ -16,7 +16,7 @@ use Throwable;
 
 /**
  * BarcodeController
- * @Controller(prefix="/barcode/v1")
+ * @Controller(prefix="/api/v1/barcode")
  */
 class BarcodeController
 {
