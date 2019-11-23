@@ -102,32 +102,69 @@
     <script type='text/javascript' src='vendor/layer/2.4/layer.js'></script>
     <script type="text/javascript" src="js/qrcode.min.js"></script>
     <script type="text/javascript">
-    $().ready(function() {
-        let options = {
-            "url":urlObj.root_path + "/api/v1/wap/pay",
-            "type": "get",
-            "beforeSend": function (xhr) {
-                let index = layer.load(0, {shade: false});
-            },
-            "complete": function (xhr) {
-                layer.closeAll('loading');
-            },
-            "success": function (msg) {
-                if (msg.status) {
-                    let QRCodeDivObj = document.getElementById("wapQRCode");
-                    $(QRCodeDivObj).html("");
-                    new QRCode(QRCodeDivObj, {
-                        width : 300,
-                        height : 300
-                    }).makeCode(msg.data);
-                } else {
-                    layer.msg("服务繁忙，请稍后再试");
-                }/**/
-            }
-        };
-        $("form").ajaxForm(options);
-    });
-</script>
+        $().ready(function() {
+            let options = {
+                "url":urlObj.root_path + "/api/v1/wap/pay",
+                "type": "get",
+                "beforeSend": function (xhr) {
+                    let index = layer.load(0, {shade: false});
+                },
+                "complete": function (xhr) {
+                    layer.closeAll('loading');
+                },
+                "success": function (msg) {
+                    if (msg.status) {
+                        let QRCodeDivObj = document.getElementById("wapQRCode");
+                        $(QRCodeDivObj).html("");
+                        new QRCode(QRCodeDivObj, {
+                            width : 300,
+                            height : 300
+                        }).makeCode(msg.data);
+                        setTimeout(function(){ queryOrderStatus(); }, 3000);
+                    } else {
+                        layer.msg("服务繁忙，请稍后再试");
+                    }/**/
+                }
+            };
+            $("form").ajaxForm(options);
+        });
+
+        /*
+            * 查询订单支付状态
+            * */
+        function queryOrderStatus(){
+            $.ajax({
+                "url":urlObj.root_path + "/api/v1/order/query",
+                "type":"GET",
+                "beforeSend": function(xhr){
+                    layer.load(2);
+                },
+                "complete": function(xhr,ts){
+                    layer.closeAll('loading');
+                },
+                "dataType": "json",
+                "success": function(msg){
+                    if (msg.status) {
+                        layer.alert('支付成功');
+                    }else{
+                        switch (msg.errcode){
+                            case 1:
+                            case 2:
+                                layer.alert('订单不存在');
+                                break;
+                            case 3:
+                                layer.alert('未完成支付，请重试');
+                                break;
+                            default:
+                                layer.alert('未知错误');
+                                break;
+                        }
+                    }
+                    location.reload();
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
