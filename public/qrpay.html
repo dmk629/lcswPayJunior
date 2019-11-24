@@ -134,8 +134,8 @@
         });
 
         /*
-        * 查询订单支付状态
-        * */
+            * 查询订单支付状态
+            * */
         function queryOrderStatus(){
             $.ajax({
                 "url":urlObj.root_path + "/api/v1/order/query",
@@ -149,22 +149,22 @@
                 "dataType": "json",
                 "success": function(msg){
                     if (msg.status) {
-                        layer.alert('支付成功');
+                        layer.msg('支付成功，即将刷新页面。');
                     }else{
                         switch (msg.errcode){
                             case 1:
                             case 2:
-                                layer.alert('订单不存在');
+                                layer.alert('订单不存在，即将刷新页面。');
                                 break;
                             case 3:
-                                layer.alert('未完成支付，请重试');
+                                layer.alert('未完成支付，请重试。');
                                 break;
                             default:
                                 layer.alert('未知错误');
                                 break;
                         }
                     }
-                    location.reload();
+                    setTimeout(location.reload() , 5000);
                 }
             });
         }
