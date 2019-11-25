@@ -85,11 +85,12 @@
         * 倒计时
         * */
         let countDown = 5; //倒计时的秒数
-        function toPreviou(){
+        setTimeout("toPrevious()", 1000);
+        function toPrevious(){
             if(countDown !== 0){
                 document.getElementById('count_down_box').innerHTML = '将在'+countDown+'秒后自动跳转回上一页' ;
                 countDown --;
-                window.setTimeout("toPreviou()", 1000);
+                window.setTimeout("toPrevious()", 1000);
             }else{
                 countDown = 4;
                 window.history.go(-1);
