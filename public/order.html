@@ -91,7 +91,7 @@
                   if(tr.children("td").eq(4).children("div").html()==="支付成功"){
                       layer.confirm('确认要退款吗？', function(index){
                           jQuery.post(
-                              urlObj.root_path + "/api/vi/order/refund",
+                              urlObj.root_path + "/api/v1/order/refund",
                               {"id":data.order_id},
                               function(msg){
                                   if(msg.status){
