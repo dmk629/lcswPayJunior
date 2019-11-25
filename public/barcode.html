@@ -120,8 +120,8 @@
                 },
                 "success": function (msg) {
                     if (msg.status) {
-                        layer.msg("支付成功");
-                        window.location.reload();
+                        layer.msg('支付成功!');
+                        setTimeout("toSuccess()", 3000);
                     } else {
                         switch (Number(msg.errcode)) {
                             case 1:
@@ -142,6 +142,11 @@
             };
             $("form").ajaxForm(options);
         });
+
+        /*
+        * 倒计时
+        * */
+        function toSuccess(){window.location = urlObj.root_path + "/success.html";}
     </script>
 
 </body>
