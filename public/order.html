@@ -88,7 +88,7 @@
               let tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
 
               if(layEvent === 'refund'){
-                  if(tr.children("td").eq(3).children("div").html()==="已支付"){
+                  if(tr.children("td").eq(3).children("div").html()==="支付成功"){
                       layer.confirm('确认要退款吗？', function(index){
                           $.post(
                               urlObj.root_path + "/order/v1/refund",
