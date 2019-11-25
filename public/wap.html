@@ -161,7 +161,7 @@
                                 break;
                         }
                     }
-                    window.setTimeout("toSuccess()", 1000);
+                    setTimeout("toSuccess()", 3000);
                 }
             });
         }
@@ -169,17 +169,7 @@
         /*
         * 倒计时
         * */
-        let countDown = 5; //倒计时的秒数
-        function toSuccess(){
-            if(countDown !== 0){
-                document.getElementById('count_down_box').innerHTML = '将在'+countDown+'秒后自动跳转到首页' ;
-                countDown --;
-                window.setTimeout("toSuccess()", 1000);
-            }else{
-                countDown = 4;
-                window.location = "/success.html";
-            }
-        }
+        function toSuccess(){window.location = "/success.html";}
     </script>
 </body>
 </html>

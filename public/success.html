@@ -71,6 +71,7 @@
             <div class="row">
                 <div class="col-12 col-lg-6 order-2 order-lg-1">
                     <h1>恭喜您，支付成功！</h1>
+                    <p id="count_down_box"></p>
                 </div><!-- .col -->
 
                 <div class="col-12 col-lg-6 order-1 order-lg-2">
@@ -80,7 +81,20 @@
         </div><!-- .container -->
     </div><!-- .home-page-icon-boxes -->
     <script type="text/javascript">
-        //setTimeout(window.history.back(-1), 5000);
+        /*
+        * 倒计时
+        * */
+        let countDown = 5; //倒计时的秒数
+        function toPreviou(){
+            if(countDown !== 0){
+                document.getElementById('count_down_box').innerHTML = '将在'+countDown+'秒后自动跳转回上一页' ;
+                countDown --;
+                window.setTimeout("toPreviou()", 1000);
+            }else{
+                countDown = 4;
+                window.history.go(-1);
+            }
+        }
     </script>
 </body>
 </html>

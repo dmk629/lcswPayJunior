@@ -88,6 +88,7 @@
                                     <button class="btn gradient-bg" type="submit">&nbsp;&nbsp;生成二维码&nbsp;&nbsp;</button>
                                 </div>
                             </form>
+                            <p id="count_down_box"></p>
                         </div><!-- .entry-content -->
                     </div><!-- .welcome-content -->
                 </div><!-- .col -->
@@ -164,10 +165,15 @@
                                 break;
                         }
                     }
-                    setTimeout(window.location.href=urlObj.root_path + "/success.html" , 5000);
+                    setTimeout("toSuccess()", 3000);
                 }
             });
         }
+
+        /*
+        * 倒计时
+        * */
+        function toSuccess(){window.location = "/success.html";}
     </script>
 
 </body>
