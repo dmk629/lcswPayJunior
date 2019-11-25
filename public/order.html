@@ -89,6 +89,7 @@
 
               if(layEvent === 'refund'){
                   console.log(tr.children("td").eq(3).children("div"));
+                  console.log(tr.children("td").eq(3).children("div").html());
                   if(tr.children("td").eq(3).children("div").html()==="支付成功"){
                       layer.confirm('确认要退款吗？', function(index){
                           $.post(
