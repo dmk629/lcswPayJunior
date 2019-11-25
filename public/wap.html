@@ -85,6 +85,7 @@
                                     <button class="btn gradient-bg" type="submit">&nbsp;&nbsp;生成二维码&nbsp;&nbsp;</button>
                                 </div>
                             </form>
+                            <p></p>
                         </div><!-- .entry-content -->
                     </div><!-- .welcome-content -->
                 </div><!-- .col -->
@@ -120,7 +121,7 @@
                             width : 300,
                             height : 300
                         }).makeCode(msg.data);
-                        setTimeout(function(){ queryOrderStatus(); }, 3000);
+                        setTimeout("queryOrderStatus()", 3000);
                     } else {
                         layer.msg("服务繁忙，请稍后再试");
                     }/**/
@@ -130,8 +131,8 @@
         });
 
         /*
-            * 查询订单支付状态
-            * */
+         * 查询订单支付状态
+         * */
         function queryOrderStatus(){
             $.ajax({
                 "url":urlObj.root_path + "/api/v1/order/query",
@@ -160,11 +161,26 @@
                                 break;
                         }
                     }
-                    setTimeout(window.location.href=urlObj.root_path + "/success.html" , 5000);
+                    toSuccess();
                 }
             });
         }
-    </script>
 
+        /*
+        * 倒计时
+        * */
+        let countDown = 5; //倒计时的秒数
+        window.setTimeout("toSuccess()", 1000);
+        function toSuccess(){
+            if(countDown !== 0){
+                document.getElementById('page_div').innerHTML = '将在'+countDown+'秒后自动跳转到首页' ;
+                countDown --;
+                window.setTimeout("toSuccess()", 1000);
+            }else{
+                countDown = 4;
+                window.location = "/success.html";
+            }
+        }
+    </script>
 </body>
 </html>
