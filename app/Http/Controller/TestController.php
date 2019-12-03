@@ -15,14 +15,14 @@ use Throwable;
 
 /**
  * TestController
- * @Controller(prefix="/test")
+ * @Controller(prefix="/api")
  */
 class TestController
 {
 
     /**
      * test
-     * @RequestMapping(route="/test",method=RequestMethod::POST)
+     * @RequestMapping(route="test",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
      *
      * @param Request $request
