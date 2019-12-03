@@ -33,7 +33,8 @@ class TestController
     public function payForBarcode(Request $request)
     {
         $post = $request->post();
-        return formatResponse(true,0,$post);
+        $couponList = json_decode($post["coupon"], true);
+        return formatResponse(true,0,$couponList);
     }
 
 }
