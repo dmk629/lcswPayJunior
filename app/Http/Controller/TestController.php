@@ -22,7 +22,7 @@ class TestController
 
     /**
      * test
-     * @RequestMapping(route="notify",method=RequestMethod::POST)
+     * @RequestMapping(route="notify",method=RequestMethod::POST,method=RequestMethod::OPTIONS)
      * @Middleware(ControllerMiddleware::class)
      *
      * @param Request $request
