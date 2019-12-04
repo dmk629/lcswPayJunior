@@ -22,7 +22,7 @@ class TestController
 
     /**
      * test
-     * @RequestMapping(route="test",method=RequestMethod::POST)
+     * @RequestMapping(route="notify",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
      *
      * @param Request $request
@@ -30,11 +30,10 @@ class TestController
      * @return mixed
      * @throws Throwable
      */
-    public function payForBarcode(Request $request)
+    public function notifyTest(Request $request)
     {
-        $post = $request->post();
-        $couponList = json_decode($post["coupon"], true);
-        return formatResponse(true,0,$couponList);
+        //$post = $request->post();
+        return context()->getResponse()->withData(["return_code"=>"01","return_msg"=>"success"]);
     }
 
 }
