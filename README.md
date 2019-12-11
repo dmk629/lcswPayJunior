@@ -19,4 +19,5 @@
  * [WAP SDK入口](http://pay.dnfmiracle.xyz/wap.html)
  * [聚合码支付](http://pay.dnfmiracle.xyz/qrpay.html)
  
+> 使用说明：后台管理目前暂时不需要账号密码，点击登录按钮即可。
  
