@@ -41,7 +41,6 @@ class DreamController
             foreach($value["cityList"] as $item){
                 $returnArray[$key]["city"][] = $item["name"];
             }
-            break;
         }
         var_dump($returnArray);
         return context()->getResponse()->withData(["return_code"=>"01","return_msg"=>"success"]);
