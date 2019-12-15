@@ -33,16 +33,16 @@ class DreamController
     {
         $cityJson = file_get_contents("./city.json");
         $cityInfo = json_decode($cityJson,true);
+
         $returnArray = [];
-        foreach($cityInfo as $key=>$value){
+        /*foreach($cityInfo as $key=>$value){
             //var_dump($value);
             $returnArray[$key]["name"] = $value["name"];
             foreach($value["cityList"] as $item){
                 $returnArray[$key]["city"][] = $item["name"];
             }
-        }
-        var_dump($returnArray);
-
+        }*/
+        var_dump($cityInfo);
         return context()->getResponse()->withData(["return_code"=>"01","return_msg"=>"success"]);
     }
 
