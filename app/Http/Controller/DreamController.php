@@ -30,11 +30,10 @@ class DreamController
      * @return mixed
      * @throws Throwable
      */
-    public function test(Request $request)
+    public function test()
     {
-        $cityJson = file_get_contents(__DIR__."/city.json");
+        /*$cityJson = file_get_contents(__DIR__."/city.json");
         $cityInfo = json_decode($cityJson,true);
-
         $returnArray = [];
         DB::beginTransaction();
         foreach($cityInfo as $key=>$value){
@@ -56,7 +55,7 @@ class DreamController
             }
         }
         var_dump($returnArray);
-        DB::commit();
+        DB::commit();*/
         return context()->getResponse()->withData(["return_code"=>"01","return_msg"=>"success"]);
     }
 
