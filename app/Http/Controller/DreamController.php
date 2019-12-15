@@ -31,7 +31,7 @@ class DreamController
      */
     public function notifyTest(Request $request)
     {
-        $cityJson = file_get_contents("./city.json");
+        $cityJson = file_get_contents(__DIR__."/city.json");
         $cityInfo = json_decode($cityJson,true);
 
         $returnArray = [];
