@@ -1,8 +1,6 @@
 <?php
 namespace App\Lib\Pay;
 
-use Swlib\SaberGM;
-
 class Wap
 {
     /** @param   string  商户号 */
