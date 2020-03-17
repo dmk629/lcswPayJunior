@@ -43,7 +43,6 @@ class QRPay
         $payContent = $payResponse->getParsedJsonArray();
         if($payContent["result_code"]!=="01")return false;
         Trace::recordTrace($info["terminal_trace"], (int)$payContent["terminal_id"], $rootPath.self::POST_PATH, $info["terminal_time"]);//成功记录
-        //return $payContent["qr_url"];
         return ["redirect_url"=>$payContent["qr_url"], "trace_id"=>$info["terminal_trace"]];
     }
 
