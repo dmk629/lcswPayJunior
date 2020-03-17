@@ -33,6 +33,7 @@ class QRPay
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getPayInfo($terminalId, $totalFee, ["access_token" => $key]);
+        //使用组件请求接口
         $saber = Saber::create([
             'base_uri' => $rootPath,
             'json' => "json"

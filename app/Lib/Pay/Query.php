@@ -47,14 +47,13 @@ class Query
     private function getPayResult($queryInfo)
     {
         $rootPath = config("pay.rootPath");
+        //使用组件请求接口
         $saber = Saber::create([
             'base_uri' => $rootPath,
             'json' => "json"
         ]);
         for($i = 0;$i < 15;$i++){
-            var_dump($queryInfo);
             $content = $saber->post(self::QUERY_PATH, $queryInfo)->getParsedJsonArray();
-            var_dump($content);
             if($content["result_code"]==="01")return $content;
             \Swoole\Coroutine::sleep(5);
         }

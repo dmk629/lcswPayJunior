@@ -86,6 +86,7 @@ class Barcode
     {
         $rootPath = config("pay.rootPath");
         for($i = 0;$i < 15;$i++){
+            //使用组件请求接口
             $saber = Saber::create([
                 'base_uri' => $rootPath,
                 'json' => "json"

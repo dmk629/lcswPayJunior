@@ -34,6 +34,7 @@ class Refund
     {
         $rootPath = config("pay.rootPath");
         $info = $this->getRefundInfo($terminalId, $refundFee, $tradeNo, ["access_token" => $key]);
+        //使用组件请求接口
         $saber = Saber::create([
             'base_uri' => $rootPath,
             'json' => "json"
