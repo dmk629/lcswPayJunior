@@ -44,12 +44,12 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="prepay",method=RequestMethod::POST)
+     * @RequestMapping(route="mini",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function prepay()
+    public function mini()
     {
         //传入参数
         $fields = array(
@@ -58,18 +58,18 @@ class SdkController
             'fenqi_num' => '3',
             'total_fee' => '1'
         );
-        $result = $this->send($fields, 'fenqiprepay');
+        $result = $this->send($fields, 'fenqiminipay');
         return formatResponse(true,6,$result);
     }
 
     /**
      *
-     * @RequestMapping(route="jspay",method=RequestMethod::POST)
+     * @RequestMapping(route="query",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function jspay()
+    public function query()
     {
         //传入参数
         $fields = array(
@@ -78,7 +78,7 @@ class SdkController
             'fenqi_num' => '3',
             'total_fee' => '1'
         );
-        $result = $this->send($fields, 'fenqijspay');
+        $result = $this->send($fields, 'fenqiquery');
         return formatResponse(true,6,$result);
     }
 
