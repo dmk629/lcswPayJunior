@@ -43,7 +43,7 @@ class SdkController
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             //'refund_fee' => '1'
         );
-        $result = $sdk->cancel($fields);
+        $result = $sdk->close($fields);
         return formatResponse(true,6,$result);
     }
 
