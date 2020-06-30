@@ -48,6 +48,49 @@ class SdkController
 
     /**
      *
+     * @RequestMapping(route="barcode",method=RequestMethod::POST)
+     * @param Request $request
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function barcode(Request $request)
+    {
+        $authNo = $request->post("auth_no");
+        //传入参数
+        $fields = array(
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '000',
+            'auth_no' => $authNo,
+            'total_fee' => '1'
+        );
+        $result = $this->send($fields, 'preauthbar');
+        return formatResponse(true,6,$result);
+    }
+
+    /**
+     *
+     * @RequestMapping(route="qr",method=RequestMethod::POST)
+     * @param Request $request
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function qr(Request $request)
+    {
+        //$authNo = $request->post("auth_no");
+        //传入参数
+        $fields = array(
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '010',
+            'total_fee' => '1'
+        );
+        $result = $this->send($fields, 'preauthqr');
+        return formatResponse(true,6,$result);
+    }
+
+    /**
+     *
      * @RequestMapping(route="notify",method=RequestMethod::POST)
      *
      * @return mixed
