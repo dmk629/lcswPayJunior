@@ -39,8 +39,9 @@ class SdkController
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '010',
             //'out_trade_no' => '307596080021120063010121400013',
-            'auth_no' => '134722504034941251',
+            //'auth_no' => '134722504034941251',
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'order_body' => 'test',
             'attach' => 'test',
@@ -53,7 +54,7 @@ class SdkController
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             //'refund_fee' => '1'
         );*/
-        $result = $sdk->preauthbar($fields);
+        $result = $sdk->preauthqr($fields);
         return formatResponse(true,6,$result);
     }
 
