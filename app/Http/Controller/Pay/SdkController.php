@@ -42,7 +42,7 @@ class SdkController
             'pay_type' => '010',
             //'out_trade_no' => '307596080021120063010121400013',
             //'auth_no' => '134722504034941251',
-            //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
+            'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'total_fee' => '1'
         );
         /*$fields = array(
@@ -52,7 +52,7 @@ class SdkController
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             //'refund_fee' => '1'
         );*/
-        $result = $sdk->preauthjspay($fields);
+        $result = $sdk->preauthminipay($fields);
         return formatResponse(true,6,$result);
     }
 
