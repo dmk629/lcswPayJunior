@@ -48,55 +48,64 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="qrh5",method=RequestMethod::POST)
+     * @RequestMapping(route="add",method=RequestMethod::POST)
      * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function qrh5(Request $request)
+    public function add(Request $request)
     {
-        $authNo = $request->post("auth_no");
         //传入参数
         $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'total_fee' => '1'
+            'trace_no' => $this->createTraceNoDemo('52100005'),
+            'merchant_name' => '阿西吧',
+            'merchant_alias' => '阿西吧',
+            'merchant_company' => '阿西吧',
+            'merchant_province' => '阿西吧',
+            'merchant_province_code	' => '1',
+            'merchant_city' => '阿西吧',
+            'merchant_city_code' => '1',
+            'merchant_county' => '阿西吧',
+            'merchant_county_code' => '1',
+            'merchant_address' => '阿西吧阿西吧阿西吧',
+            'merchant_person' => '阿西吧',
+            'merchant_phone' => '133456789012',
+            'merchant_email' => '123@qq.com',
+            'business_name' => '阿西吧',
+            'business_code' => '1',
+            'merchant_business_type' => '1',
+            'account_type' => '1',
+            'settlement_type' => '1',
+            'license_type' => '1',
+            'account_name' => '阿西吧',
+            'account_no' => '13345678901213345678',
+            'bank_name' => '阿西吧',
+            'bank_no' => '1',
+            'settle_type' => '1'
         );
-        $result = $this->send($fields, 'preauthqrh5pay');
-        return formatResponse(true,6,$result);
-    }
-
-    /**
-     *
-     * @RequestMapping(route="js",method=RequestMethod::POST)
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function js(Request $request)
-    {
-        //$authNo = $request->post("auth_no");
-        //传入参数
-        $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '010',
-            'total_fee' => '1'
-        );
-        $result = $this->send($fields, 'preauthjspay');
+        $result = $this->send($fields, 'merchantadd');
         return formatResponse(true,6,$result);
     }
 
     private function send($fields, $method)
     {
         $sdk = new \Saobei\sdk\Dispatcher();
-        $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
+        $sdk->initMerchant('52100005', '22aa5dda974b4f0d9d5ed2f3f7cc1d89');
         return call_user_func([$sdk, $method], $fields);
     }
 
-    private function createTerminalTraceDemo($merchantNo, $terminalId)
+
+    /**
+     * 流水号生成样例
+     *  仅用于演示，一秒内多单会出现相同流水号，请勿生产使用
+     * @param string $instNo 机构号
+     * @param string $key
+     * @return string
+     * */
+    function createTraceNoDemo($instNo)
     {
-        return substr($merchantNo, 1).$terminalId.time();
+        return $instNo.date('YmdHis').mt_rand(1000000000,9999999999);
     }
 
 }
