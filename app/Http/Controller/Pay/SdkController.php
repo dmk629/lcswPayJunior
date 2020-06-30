@@ -37,12 +37,12 @@ class SdkController
         $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
         //传入参数
         $fields = array(
-            //'pay_type' => '010',
+            'pay_type' => '000',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'total_fee' => '1'
         );
-        $result = $sdk->wappay($fields);
+        $result = $sdk->qrpay($fields);
         return formatResponse(true,6,$result);
     }
 
