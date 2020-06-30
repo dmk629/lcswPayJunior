@@ -13,6 +13,7 @@ use Swoft\Validator\Annotation\Mapping\Validate;
 use Swoft\Bean\BeanFactory;
 use App\Lib\Pay\Barcode;
 use Throwable;
+use Toolkit\Cli\Terminal;
 
 /**
  * BarcodeController
@@ -39,11 +40,14 @@ class SdkController
         $fields = array(
             'pay_type' => '000',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'out_trade_no' => '307596080021120063010121400013',
+            //'terminal_no' => \Saobei\sdk\Config\Terminal::getInstance()->getTerminalId()    ,
+            //'out_trade_no' => '307596080021120063010121400013',
+            //'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect',
+            'auth_no' => '134605165294091854',
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             //'refund_fee' => '1'
         );
-        $result = $sdk->close($fields);
+        $result = $sdk->authcodetoopenid($fields);
         return formatResponse(true,6,$result);
     }
 
