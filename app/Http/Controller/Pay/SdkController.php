@@ -55,6 +55,7 @@ class SdkController
      */
     public function notify()
     {
+        var_dump(file_get_contents('php://input'));
         $result = $this->send(function($data){
             var_dump($data);
         }, 'fenqinotify');
