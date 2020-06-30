@@ -25,24 +25,6 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="wap",method=RequestMethod::POST)
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function wap()
-    {
-        //传入参数
-        $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'total_fee' => '1'
-        );
-        $result = $this->send($fields, 'wapPay');
-        return formatResponse(true,6,$result);
-    }
-
-    /**
-     *
      * @RequestMapping(route="auth",method=RequestMethod::POST)
      *
      * @return mixed
@@ -62,35 +44,37 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="openid",method=RequestMethod::POST)
+     * @RequestMapping(route="rate",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function openid()
+    public function rate()
     {
         //传入参数
         $fields = array(
-            'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect'
         );
-        $result = $this->send($fields, 'authOpenId');
+        $result = $this->send($fields, 'fenQiRateQuery');
         return formatResponse(true,6,$result);
     }
 
     /**
      *
-     * @RequestMapping(route="accesstoken",method=RequestMethod::POST)
+     * @RequestMapping(route="barcode",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function accessToken()
+    public function barcode()
     {
         //传入参数
         $fields = array(
-            'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect'
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '020',
+            'auth_no' => '134708496887937542',
+            'total_fee' => '1'
         );
-        $result = $this->send($fields, 'authAccessToken');
+        $result = $this->send($fields, 'fenqibarcodepay');
         return formatResponse(true,6,$result);
     }
 
