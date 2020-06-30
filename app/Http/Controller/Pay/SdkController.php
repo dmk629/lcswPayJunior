@@ -59,8 +59,7 @@ class SdkController
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'refund_fee' => '1',
-            'pay_type' => '000',
-            'out_trade_no' => '307596080022120063017340400014',
+            'out_trade_no' => '307596080022120063017340400014'
         );
         $result = $this->send($fields, 'fenqirefund');
         return formatResponse(true,6,$result);
@@ -97,7 +96,6 @@ class SdkController
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '000',
             'out_trade_no' => '307596080022120063017340400014',
         );
         $result = $this->send($fields, 'fenqiclose');
