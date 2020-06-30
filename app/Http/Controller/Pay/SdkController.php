@@ -48,64 +48,42 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="barcode",method=RequestMethod::POST)
+     * @RequestMapping(route="qrh5",method=RequestMethod::POST)
      * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function barcode(Request $request)
+    public function qrh5(Request $request)
     {
         $authNo = $request->post("auth_no");
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '000',
-            'auth_no' => $authNo,
             'total_fee' => '1'
         );
-        $result = $this->send($fields, 'preauthbar');
+        $result = $this->send($fields, 'preauthqrh5pay');
         return formatResponse(true,6,$result);
     }
 
     /**
      *
-     * @RequestMapping(route="qr",method=RequestMethod::POST)
+     * @RequestMapping(route="js",method=RequestMethod::POST)
      * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function qr(Request $request)
+    public function js(Request $request)
     {
         //$authNo = $request->post("auth_no");
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '010',
             'total_fee' => '1'
         );
-        $result = $this->send($fields, 'preauthqr');
+        $result = $this->send($fields, 'preauthjspay');
         return formatResponse(true,6,$result);
-    }
-
-    /**
-     *
-     * @RequestMapping(route="notify",method=RequestMethod::POST)
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function notify(Request $request)
-    {
-        $post = $request->post();
-        $result = $this->send([
-            $post,
-            function() use ($post) {
-                //var_dump($post);
-            }
-        ], 'fenqinotify');
-        return \Swoft\Context\Context::mustGet()->getResponse()->withData($result);
     }
 
     private function send($fields, $method)
