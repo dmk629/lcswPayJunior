@@ -18,45 +18,55 @@ use Toolkit\Cli\Terminal;
 /**
  * BarcodeController
  * @Controller(prefix="/api/v1/sdk")
+ * @Middleware(ControllerMiddleware::class)
  */
 class SdkController
 {
 
     /**
-     * payForBarcode
-     * @RequestMapping(route="test",method=RequestMethod::POST)
-     * @Middleware(ControllerMiddleware::class)
      *
-     * @param Request $request
+     * @RequestMapping(route="wap",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function test(Request $request)
+    public function wap()
     {
-        $sdk = new \Saobei\sdk\Dispatcher();
-        $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '010',
-            //'out_trade_no' => '307596080021120063010121400013',
-            //'auth_no' => '134722504034941251',
-            'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'total_fee' => '1'
         );
-        /*$fields = array(
-            'terminal_no' => \Saobei\sdk\Config\Terminal::getInstance()->getTerminalId()    ,
-            'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect',
-            'auth_no' => '134605165294091854',
-            //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
-            //'refund_fee' => '1'
-        );*/
-        $result = $sdk->preauthminipay($fields);
+        $result = $this->send($fields, 'wapPay');
         return formatResponse(true,6,$result);
     }
 
-    function createTerminalTraceDemo($merchantNo, $terminalId)
+    /**
+     *
+     * @RequestMapping(route="auth",method=RequestMethod::POST)
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function auth()
+    {
+        //传入参数
+        $fields = array(
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'auth_no' => '1234567'
+        );
+        $result = $this->send($fields, 'authCodeToOpenId');
+        return formatResponse(true,6,$result);
+    }
+
+    private function send($fields, $method)
+    {
+        $sdk = new \Saobei\sdk\Dispatcher();
+        $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
+        return call_user_func([$sdk, $method], $fields);
+    }
+
+    private function createTerminalTraceDemo($merchantNo, $terminalId)
     {
         return substr($merchantNo, 1).$terminalId.time();
     }
