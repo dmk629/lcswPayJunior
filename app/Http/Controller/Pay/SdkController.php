@@ -25,81 +25,39 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="barcode",method=RequestMethod::POST)
+     * @RequestMapping(route="prepay",method=RequestMethod::POST)
      * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function barcode(Request $request)
+    public function prepay(Request $request)
     {
-        $authNo = $request->post("auth_no");
+        //$authNo = $request->post("auth_no");
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '020',
             'fenqi_num' => '3',
-            'auth_no' => $authNo,
+            'notify_url' => 'http://pay.dnfmiracle.xyz/api/v1/sdk/notify',
             'total_fee' => '1'
         );
-        $result = $this->send($fields, 'fenqibar');
+        $result = $this->send($fields, 'fenqiprepay');
         return formatResponse(true,6,$result);
     }
 
     /**
      *
-     * @RequestMapping(route="refund",method=RequestMethod::POST)
+     * @RequestMapping(route="notify",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function refund()
+    public function notify()
     {
-        //传入参数
-        $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'refund_fee' => '1',
-            'out_trade_no' => '307596080022120063017340400014'
-        );
-        $result = $this->send($fields, 'fenqirefund');
-        return formatResponse(true,6,$result);
-    }
-
-
-    /**
-     *
-     * @RequestMapping(route="cancel",method=RequestMethod::POST)
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function cancel()
-    {
-        //传入参数
-        $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '000',
-            'out_trade_no' => '307596080022120063017340400014'
-        );
-        $result = $this->send($fields, 'fenqicancel');
-        return formatResponse(true,6,$result);
-    }
-
-    /**
-     *
-     * @RequestMapping(route="close",method=RequestMethod::POST)
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function close()
-    {
-        //传入参数
-        $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'out_trade_no' => '307596080022120063017340400014',
-        );
-        $result = $this->send($fields, 'fenqiclose');
+        $result = $this->send(function($data){
+            var_dump($data);
+        }, 'fenqinotify');
         return formatResponse(true,6,$result);
     }
 
