@@ -53,6 +53,7 @@ class SdkController
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '010',
             'auth_no' => '1234567'
         );
         $result = $this->send($fields, 'authCodeToOpenId');
