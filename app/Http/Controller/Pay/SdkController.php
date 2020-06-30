@@ -43,6 +43,8 @@ class SdkController
             //'out_trade_no' => '307596080021120063010121400013',
             'auth_no' => '134605165294091854',
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
+            'order_body' => 'test',
+            'attach' => 'test',
             'total_fee' => '1'
         );
         /*$fields = array(
