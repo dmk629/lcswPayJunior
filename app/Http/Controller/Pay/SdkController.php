@@ -68,19 +68,20 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="query",method=RequestMethod::POST)
+     * @RequestMapping(route="cancel",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function query()
+    public function cancel()
     {
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'out_trade_no' => '307596080022120063017340400014',
+            'pay_type' => '000',
+            'out_trade_no' => '307596080022120063017340400014'
         );
-        $result = $this->send($fields, 'fenqirefund');
+        $result = $this->send($fields, 'fenqicancel');
         return formatResponse(true,6,$result);
     }
 
