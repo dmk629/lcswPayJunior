@@ -38,10 +38,9 @@ class SdkController
         $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
         //传入参数
         $fields = array(
-            'pay_type' => '000',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             //'out_trade_no' => '307596080021120063010121400013',
-            'auth_no' => '134605165294091854',
+            'auth_no' => '134722504034941251',
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'order_body' => 'test',
             'attach' => 'test',
