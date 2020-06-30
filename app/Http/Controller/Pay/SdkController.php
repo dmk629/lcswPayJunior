@@ -39,10 +39,11 @@ class SdkController
         $fields = array(
             'pay_type' => '000',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'out_trade_no' => '307596080021120063010121400013',
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'total_fee' => '1'
         );
-        $result = $sdk->qrpay($fields);
+        $result = $sdk->query($fields);
         return formatResponse(true,6,$result);
     }
 
