@@ -60,6 +60,40 @@ class SdkController
         return formatResponse(true,6,$result);
     }
 
+    /**
+     *
+     * @RequestMapping(route="openid",method=RequestMethod::POST)
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function openid()
+    {
+        //传入参数
+        $fields = array(
+            'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect'
+        );
+        $result = $this->send($fields, 'authOpenId');
+        return formatResponse(true,6,$result);
+    }
+
+    /**
+     *
+     * @RequestMapping(route="accesstoken",method=RequestMethod::POST)
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function accessToken()
+    {
+        //传入参数
+        $fields = array(
+            'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect'
+        );
+        $result = $this->send($fields, 'authAccessToken');
+        return formatResponse(true,6,$result);
+    }
+
     private function send($fields, $method)
     {
         $sdk = new \Saobei\sdk\Dispatcher();
