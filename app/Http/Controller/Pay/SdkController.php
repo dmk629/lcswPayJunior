@@ -59,10 +59,10 @@ class SdkController
         $result = $this->send([
             $post,
             function() use ($post) {
-                var_dump($post);
+                //var_dump($post);
             }
         ], 'fenqinotify');
-        return formatResponse(true,6,$result);
+        return \Swoft\Context\Context::mustGet()->getResponse()->withData($result);
     }
 
     private function send($fields, $method)
