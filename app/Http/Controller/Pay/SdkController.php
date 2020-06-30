@@ -23,7 +23,7 @@ class SdkController
 
     /**
      * payForBarcode
-     * @RequestMapping(route="barcode",method=RequestMethod::POST)
+     * @RequestMapping(route="test",method=RequestMethod::POST)
      * @Middleware(ControllerMiddleware::class)
      *
      * @param Request $request
@@ -37,11 +37,11 @@ class SdkController
         $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
         //传入参数
         $fields = array(
-            'pay_type' => '010',//自动识别支付类型
+            'pay_type' => '010',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'total_fee' => '1'
         );
-        $result = $sdk->jsPay($fields);
+        $result = $sdk->minipay($fields);
         return formatResponse(true,6,$result);
     }
 
