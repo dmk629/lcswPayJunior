@@ -38,7 +38,7 @@ class SdkController
         //传入参数
         $fields = array(
             'pay_type' => '010',//自动识别支付类型
-            'terminal_trace' => $this->createTerminalTraceDemo($_POST['merchant_no'], $_POST['terminal_id']),
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'total_fee' => '1'
         );
         $result = $sdk->jsPay($fields);
