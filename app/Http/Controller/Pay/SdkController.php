@@ -36,7 +36,7 @@ class SdkController
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '010',
-            'auth_no' => '134630670071806017'
+            'auth_no' => '134718427588337615'
         );
         $result = $this->send($fields, 'authCodeToOpenId');
         return formatResponse(true,6,$result);
@@ -56,7 +56,7 @@ class SdkController
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '020',
             'fenqi_num' => '3',
-            'auth_no' => '134630670071806017',
+            'auth_no' => '134718427588337615',
             'total_fee' => '1'
         );
         $result = $this->send($fields, 'fenqibar');
