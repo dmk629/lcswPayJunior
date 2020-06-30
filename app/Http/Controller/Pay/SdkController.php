@@ -80,6 +80,7 @@ class SdkController
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '010',
             'total_fee' => '1'
         );
         $result = $this->send($fields, 'preauthjspay');
