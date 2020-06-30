@@ -53,11 +53,15 @@ class SdkController
      * @return mixed
      * @throws Throwable
      */
-    public function notify()
+    public function notify(Request $request)
     {
-        $result = $this->send(function($data){
-            var_dump($data);
-        }, 'fenqinotify');
+        $post = $request->post();
+        $result = $this->send([
+            $post,
+            function() use ($post) {
+                var_dump($post);
+            }
+        ], 'fenqinotify');
         return formatResponse(true,6,$result);
     }
 
