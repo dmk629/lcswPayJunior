@@ -39,6 +39,7 @@ class SdkController
         $fields = array(
             'pay_type' => '010',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             'total_fee' => '1'
         );
         $result = $sdk->minipay($fields);
