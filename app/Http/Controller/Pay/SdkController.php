@@ -37,17 +37,23 @@ class SdkController
         $sdk = new \Saobei\sdk\Dispatcher();
         $sdk->initTerminal('824707011000002', '30759608', '631fbfdb5c08483d8f7274f0cc400710');
         //传入参数
-        $fields = array(
+        /*$fields = array(
             'pay_type' => '000',
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            //'terminal_no' => \Saobei\sdk\Config\Terminal::getInstance()->getTerminalId()    ,
             //'out_trade_no' => '307596080021120063010121400013',
-            //'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect',
             'auth_no' => '134605165294091854',
             //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
             //'refund_fee' => '1'
         );
-        $result = $sdk->authcodetoopenid($fields);
+        $fields = array(
+            'terminal_no' => \Saobei\sdk\Config\Terminal::getInstance()->getTerminalId()    ,
+            'redirect_uri' => 'http://test.lcsw.cn:8045/demo/redirect',
+            'auth_no' => '134605165294091854',
+            //'open_id' => 'obnG9jor12YYw7bog3bENMKBD51A',
+            //'refund_fee' => '1'
+        );*/
+        $fields = array();
+        $result = $sdk->fenqiratequery($fields);
         return formatResponse(true,6,$result);
     }
 
