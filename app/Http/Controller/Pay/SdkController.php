@@ -36,7 +36,7 @@ class SdkController
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '010',
-            'auth_no' => '134624012465508145'
+            'auth_no' => '134630670071806017'
         );
         $result = $this->send($fields, 'authCodeToOpenId');
         return formatResponse(true,6,$result);
