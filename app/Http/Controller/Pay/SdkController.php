@@ -48,43 +48,20 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="add",method=RequestMethod::POST)
+     * @RequestMapping(route="name",method=RequestMethod::POST)
      * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function add(Request $request)
+    public function name(Request $request)
     {
         //传入参数
         $fields = array(
             'trace_no' => $this->createTraceNoDemo('52100005'),
-            'merchant_name' => '阿西吧',
-            'merchant_alias' => '阿西吧',
-            'merchant_company' => '阿西吧',
-            'merchant_province' => '阿西吧',
-            'merchant_province_code	' => '1',
-            'merchant_city' => '阿西吧',
-            'merchant_city_code' => '1',
-            'merchant_county' => '阿西吧',
-            'merchant_county_code' => '1',
-            'merchant_address' => '阿西吧阿西吧阿西吧',
-            'merchant_person' => '阿西吧',
-            'merchant_phone' => '133456789012',
-            'merchant_email' => '123@qq.com',
-            'business_name' => '阿西吧',
-            'business_code' => '1',
-            'merchant_business_type' => '1',
-            'account_type' => '1',
-            'settlement_type' => '1',
-            'license_type' => '1',
-            'account_name' => '阿西吧',
-            'account_no' => '13345678901213345678',
-            'bank_name' => '阿西吧',
-            'bank_no' => '1',
-            'settle_type' => '1'
+            'merchant_name' => '阿西吧'
         );
-        $result = $this->send($fields, 'merchantadd');
+        $result = $this->send($fields, 'merchantcheckname');
         return formatResponse(true,6,$result);
     }
 
