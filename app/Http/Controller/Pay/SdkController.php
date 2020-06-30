@@ -56,7 +56,7 @@ class SdkController
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '020',
             'fenqi_num' => '3',
-            'auth_no' => '134597420662644174',
+            'auth_no' => '285060674985471806',
             'total_fee' => '1'
         );
         $result = $this->send($fields, 'fenqibar');
