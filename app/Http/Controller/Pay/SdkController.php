@@ -25,43 +25,47 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="auth",method=RequestMethod::POST)
+     * @RequestMapping(route="barcode",method=RequestMethod::POST)
+     * @param Request $request
      *
      * @return mixed
      * @throws Throwable
      */
-    public function auth()
+    public function barcode(Request $request)
     {
-        //传入参数
-        $fields = array(
-            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '010',
-            'auth_no' => '134718427588337615'
-        );
-        $result = $this->send($fields, 'authCodeToOpenId');
-        return formatResponse(true,6,$result);
-    }
-
-    /**
-     *
-     * @RequestMapping(route="mini",method=RequestMethod::POST)
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function mini()
-    {
+        $authNo = $request->post("auth_no");
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '020',
             'fenqi_num' => '3',
-            'auth_no' => '285060674985471806',
+            'auth_no' => $authNo,
             'total_fee' => '1'
         );
         $result = $this->send($fields, 'fenqibar');
         return formatResponse(true,6,$result);
     }
+
+    /**
+     *
+     * @RequestMapping(route="refund",method=RequestMethod::POST)
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function refund()
+    {
+        //传入参数
+        $fields = array(
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'refund_fee' => '1',
+            'pay_type' => '000',
+            'out_trade_no' => '307596080022120063017340400014',
+        );
+        $result = $this->send($fields, 'fenqirefund');
+        return formatResponse(true,6,$result);
+    }
+
 
     /**
      *
@@ -75,11 +79,28 @@ class SdkController
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
-            'pay_type' => '020',
-            'fenqi_num' => '3',
-            'total_fee' => '1'
+            'out_trade_no' => '307596080022120063017340400014',
         );
-        $result = $this->send($fields, 'fenqiquery');
+        $result = $this->send($fields, 'fenqirefund');
+        return formatResponse(true,6,$result);
+    }
+
+    /**
+     *
+     * @RequestMapping(route="close",method=RequestMethod::POST)
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function close()
+    {
+        //传入参数
+        $fields = array(
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '000',
+            'out_trade_no' => '307596080022120063017340400014',
+        );
+        $result = $this->send($fields, 'fenqiclose');
         return formatResponse(true,6,$result);
     }
 
