@@ -44,38 +44,41 @@ class SdkController
 
     /**
      *
-     * @RequestMapping(route="rate",method=RequestMethod::POST)
+     * @RequestMapping(route="prepay",method=RequestMethod::POST)
      *
      * @return mixed
      * @throws Throwable
      */
-    public function rate()
-    {
-        //传入参数
-        $fields = array(
-        );
-        $result = $this->send($fields, 'fenQiRateQuery');
-        return formatResponse(true,6,$result);
-    }
-
-    /**
-     *
-     * @RequestMapping(route="barcode",method=RequestMethod::POST)
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function barcode()
+    public function prepay()
     {
         //传入参数
         $fields = array(
             'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
             'pay_type' => '020',
-            'auth_no' => '134708496887937542',
             'fenqi_num' => '3',
             'total_fee' => '1'
         );
-        $result = $this->send($fields, 'fenqibarcodepay');
+        $result = $this->send($fields, 'fenqiprepay');
+        return formatResponse(true,6,$result);
+    }
+
+    /**
+     *
+     * @RequestMapping(route="jspay",method=RequestMethod::POST)
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function jspay()
+    {
+        //传入参数
+        $fields = array(
+            'terminal_trace' => $this->createTerminalTraceDemo('824707011000002', '30759608'),
+            'pay_type' => '020',
+            'fenqi_num' => '3',
+            'total_fee' => '1'
+        );
+        $result = $this->send($fields, 'fenqijspay');
         return formatResponse(true,6,$result);
     }
 
