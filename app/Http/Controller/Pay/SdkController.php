@@ -95,7 +95,7 @@ class SdkController
             'img_private_idcard_b' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
             'img_salesman_logo' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
             'img_salesman_poster' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
-            'inst_no' => '52100023',
+            'inst_no' => '52100005',
             'license_type' => '1',
             'merchant_address' => '青海省海东地区丰智东路13号朗丽兹西山花园酒店2007室',
             'merchant_alias' => 'lala哈哈哈哈哈哈',
