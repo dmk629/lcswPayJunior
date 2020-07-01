@@ -65,6 +65,66 @@ class SdkController
         return formatResponse(true,6,$result);
     }
 
+    /**
+     *
+     * @RequestMapping(route="add",method=RequestMethod::POST)
+     * @param Request $request
+     *
+     * @return mixed
+     * @throws Throwable
+     */
+    public function add(Request $request)
+    {
+        //传入参数
+        $fields = array(
+            'account_name' => "技术创建18(勿审核)",
+            'account_no' => '622848062284809378',
+            'account_type' => '2',
+            'bank_name' => '中国农业银行股份有限公司青海农大南路支行',
+            'bank_no' => '103100005508',
+            'business_code' => '90',
+            'business_name' => '餐饮',
+            'greenstatus' => '0',
+            'img_3rd_part' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_bankcard_a' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_cashier' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_indoor' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_license' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_logo' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_private_idcard_a' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_private_idcard_b' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_salesman_logo' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'img_salesman_poster' => 'https://lcsw-img.oss-cn-hangzhou.aliyuncs.com/miniprogram/1f382090-6a2e-4c42-97d1-9340f0d73078.jpg',
+            'inst_no' => '52100023',
+            'license_type' => '1',
+            'merchant_address' => '青海省海东地区丰智东路13号朗丽兹西山花园酒店2007室',
+            'merchant_alias' => 'lala哈哈哈哈哈哈',
+            'merchant_business_type' => '2',
+            'merchant_city' => '海东地区',
+            'merchant_city_code' => '8520',
+            'merchant_company' => '自然人一号',
+            'merchant_county' => '互助土族自治县',
+            'merchant_county_code' => '8524',
+            'merchant_email' => 'z38677772622@gmail.com',
+            'merchant_id_expire' => '29991231',
+            'merchant_id_no' => '370284198609141515',
+            'merchant_name' => '技术部创建18(勿审核)',
+            'merchant_person' => '余戈',
+            'merchant_phone' => '17006929112',
+            'merchant_province' => '青海省',
+            'merchant_province_code' => '630',
+            'merchant_service_phone' => '400-139239610',
+            'notify_url' => 'http://test.lcsw.cn:8045/lcsw/hepan/100/notify',
+            'rate_code' => 'M0039',
+            'settle_amount' => '1',
+            'settle_type' => '1',
+            'settlement_type' => '1',
+            'trace_no' => '804e3084249342f8a52a04b278ef821c'
+        );
+        $result = $this->send($fields, 'merchantadd');
+        return formatResponse(true,6,$result);
+    }
+
     private function send($fields, $method)
     {
         $sdk = new \Saobei\sdk\Dispatcher();
