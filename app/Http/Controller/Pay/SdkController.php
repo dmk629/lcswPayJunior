@@ -23,21 +23,6 @@ use Toolkit\Cli\Terminal;
 class SdkController
 {
 
-
-    /**
-     *
-     * @RequestMapping(route="test",method=RequestMethod::POST)
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function test(Request $request)
-    {
-        $post = $request->post();
-        return formatResponse(true,6,$post);
-    }
-
     /**
      *
      * @RequestMapping(route="prepay",method=RequestMethod::POST)
